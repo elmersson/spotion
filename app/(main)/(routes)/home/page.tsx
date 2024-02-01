@@ -1,7 +1,7 @@
 'use client';
-import type { SearchResults } from '@spotify/web-api-ts-sdk';
+import type { Artist, SearchResults } from '@spotify/web-api-ts-sdk';
 import { SpotifyApi } from '@spotify/web-api-ts-sdk';
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -10,17 +10,9 @@ import sdk from '@/lib/ClientInstance';
 export default function Home() {
   const session = useSession();
 
-  if (!session || session.status !== 'authenticated') {
-    return (
-      <div>
-        <h1>Spotify Web API Typescript SDK in Next.js</h1>
-        <Button onClick={() => signIn('spotify')}>Sign in with Spotify</Button>
-      </div>
-    );
-  }
   return (
     <div>
-      <p>Logged in as {session.data.user?.name}</p>
+      <p>Logged in as {session.data?.user?.name}</p>
       <Button onClick={() => signOut()}>Sign out</Button>
       <SpotifySearch sdk={sdk} />
     </div>
@@ -32,18 +24,20 @@ function SpotifySearch({ sdk }: { sdk: SpotifyApi }) {
 
   useEffect(() => {
     (async () => {
-      const results = await sdk.search('The Beatles', ['artist']);
+      const results = await sdk.search('Elvis', ['artist']);
       setResults(() => results);
     })();
   }, [sdk]);
 
   // generate a table for the results
-  const tableRows = results.artists?.items.map((artist) => {
+  const tableRows = results.artists?.items.map((artist: Artist) => {
     return (
       <tr key={artist.id}>
         <td>{artist.name}</td>
         <td>{artist.popularity}</td>
         <td>{artist.followers.total}</td>
+        <td>{artist.genres}</td>
+        <td>{artist.images[0].url}</td>
       </tr>
     );
   });
