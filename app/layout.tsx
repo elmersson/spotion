@@ -4,6 +4,7 @@ import './globals.css';
 import { getServerSession } from 'next-auth';
 
 import AuthSessionProvider from '@/components/providers/AuthSessionProvider';
+import { ThemeProvider } from '@/components/providers/theme-provider';
 
 import authOptions from './api/auth/[...nextauth]/authOptions';
 
@@ -20,10 +21,20 @@ export default async function RootLayout({
 }>) {
   const session = await getServerSession(authOptions);
   return (
-    <html lang='en'>
-      <AuthSessionProvider session={session}>
-        <body className={inter.className}>{children}</body>
-      </AuthSessionProvider>
+    <html lang='en' suppressHydrationWarning>
+      <body className={inter.className}>
+        <AuthSessionProvider session={session}>
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='system'
+            enableSystem
+            disableTransitionOnChange
+            storageKey='spotion-theme'
+          >
+            {children}
+          </ThemeProvider>
+        </AuthSessionProvider>
+      </body>
     </html>
   );
 }
