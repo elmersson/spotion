@@ -5,6 +5,8 @@ import { ReactNode } from 'react';
 
 import { Spinner } from '@/components/spinner';
 
+import { Navigation } from './_components/navigation';
+
 const MainLayout = ({ children }: { children: ReactNode }) => {
   const session = useSession();
 
@@ -20,6 +22,7 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
 
   return (
     <div className='flex h-full dark:bg-[#1F1F1F]'>
+      <Navigation />
       <main className='h-full flex-1 overflow-y-auto'>{children}</main>
     </div>
   );
