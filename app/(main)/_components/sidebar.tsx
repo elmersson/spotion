@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { ElementRef, useRef, useState, useEffect } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 
+import { useSettings } from '@/hooks/use-settings';
 import { cn } from '@/lib/utils';
 
 import { UserItem } from './user-item';
@@ -12,6 +13,7 @@ import { UserItem } from './user-item';
 export const Sidebar = () => {
   const pathname = usePathname();
   const isMobile = useMediaQuery('(max-width: 768px)');
+  const settings = useSettings();
 
   const isResizingRef = useRef(false);
   const sidebarRef = useRef<ElementRef<'aside'>>(null);
@@ -122,7 +124,10 @@ export const Sidebar = () => {
               <Search className='mr-2 shrink-0' size={16} />
               <span className='truncate'>Search</span>
             </div>
-            <div className='group flex min-h-[27px] w-full items-center py-1 pr-3 text-sm font-medium text-muted-foreground hover:bg-primary/5 hover:text-white'>
+            <div
+              onClick={settings.onOpen}
+              className='group flex min-h-[27px] w-full items-center py-1 pr-3 text-sm font-medium text-muted-foreground hover:bg-primary/5 hover:text-white'
+            >
               <Settings className='mr-2 shrink-0' size={16} />
               <span className='truncate'>Settings</span>
             </div>
