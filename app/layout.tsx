@@ -4,6 +4,7 @@ import './globals.css';
 import { getServerSession } from 'next-auth';
 
 import AuthSessionProvider from '@/components/providers/AuthSessionProvider';
+import { ModalProvider } from '@/components/providers/modal-provider';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 
 import authOptions from './api/auth/[...nextauth]/authOptions';
@@ -31,6 +32,8 @@ export default async function RootLayout({
             disableTransitionOnChange
             storageKey='spotion-theme'
           >
+            <ModalProvider />
+
             {children}
           </ThemeProvider>
         </AuthSessionProvider>
