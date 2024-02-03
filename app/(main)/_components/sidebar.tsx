@@ -7,7 +7,7 @@ import { useMediaQuery } from 'usehooks-ts';
 
 import { cn } from '@/lib/utils';
 
-export const Navigation = () => {
+export const Sidebar = () => {
   const pathname = usePathname();
   const isMobile = useMediaQuery('(max-width: 768px)');
 
@@ -97,7 +97,7 @@ export const Navigation = () => {
     <>
       <aside
         className={cn(
-          'group/sidebar relative z-[99999] flex h-full w-60 flex-col overflow-y-auto bg-secondary',
+          'group/sidebar relative z-[99999] flex h-[calc(100%-80px)] w-60 flex-col overflow-y-auto bg-secondary',
           isResetting && 'transition-all duration-300 ease-in-out',
           isMobile && 'w-0'
         )}
