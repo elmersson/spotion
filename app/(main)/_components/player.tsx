@@ -167,7 +167,7 @@ export const Player = () => {
               hover:bg-white
             '
           >
-            <Icon size={25} className='text-black' />
+            <Icon size={25} className='text-secondary' />
           </div>
           <AiFillStepBackward
             onClick={() => {}}
