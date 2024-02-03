@@ -26,7 +26,7 @@ export default async function RootLayout({
         <AuthSessionProvider session={session}>
           <ThemeProvider
             attribute='class'
-            defaultTheme='system'
+            defaultTheme='dark'
             enableSystem
             disableTransitionOnChange
             storageKey='spotion-theme'
