@@ -1,11 +1,13 @@
 'use client';
 
-import { ChevronsLeft, MenuIcon } from 'lucide-react';
+import { ChevronsLeft, MenuIcon, Plus, Search, Settings } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { ElementRef, useRef, useState, useEffect } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 
 import { cn } from '@/lib/utils';
+
+import { UserItem } from './user-item';
 
 export const Sidebar = () => {
   const pathname = usePathname();
@@ -111,10 +113,26 @@ export const Sidebar = () => {
             isMobile && 'opacity-100'
           )}
         >
-          <ChevronsLeft className='size-6' />
+          <ChevronsLeft className='size-5' />
         </div>
-        <div>Actions</div>
-        <div className='mt-4'>Library</div>
+        <div className=''>
+          <UserItem />
+          <div className='pl-3'>
+            <div className='group flex min-h-[27px] w-full items-center py-1 pr-3 text-sm font-medium text-muted-foreground hover:bg-primary/5 hover:text-white'>
+              <Search className='mr-2 shrink-0' size={16} />
+              <span className='truncate'>Search</span>
+            </div>
+            <div className='group flex min-h-[27px] w-full items-center py-1 pr-3 text-sm font-medium text-muted-foreground hover:bg-primary/5 hover:text-white'>
+              <Settings className='mr-2 shrink-0' size={16} />
+              <span className='truncate'>Settings</span>
+            </div>
+            <div className='group flex min-h-[27px] w-full items-center py-1 pr-3 text-sm font-medium text-muted-foreground hover:bg-primary/5 hover:text-white'>
+              <Plus className='mr-2 shrink-0' size={16} />
+              <span className='truncate'>Search</span>
+            </div>
+          </div>
+        </div>
+        <div className='mt-4 pl-3'>Library</div>
         <div
           onMouseDown={handleMouseDown}
           onClick={resetWidth}

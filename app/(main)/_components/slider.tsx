@@ -45,7 +45,8 @@ export const Slider: FC<SlideProps> = ({ value = 1, onChange }) => {
                 absolute 
                 h-full 
                 rounded-full 
-                bg-white
+                bg-neutral-400
+                hover:bg-white
               '
         />
       </RadixSlider.Track>
