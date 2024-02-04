@@ -53,6 +53,10 @@ const config = {
           foreground: 'hsl(var(--card-foreground))',
         },
       },
+      fontSize: {
+        xxs: ['.625rem', { lineHeight: '0.75rem' }],
+      },
+      lineHeight: {},
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
