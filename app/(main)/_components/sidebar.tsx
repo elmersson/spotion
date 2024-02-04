@@ -1,6 +1,7 @@
 'use client';
 
 import { ChevronsLeft, MenuIcon, Plus, Search, Settings } from 'lucide-react';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { ElementRef, useRef, useState, useEffect } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
@@ -133,11 +134,41 @@ export const Sidebar = () => {
             </div>
             <div className='group flex min-h-[27px] w-full items-center py-1 pr-3 text-sm font-medium text-muted-foreground hover:bg-primary/5 hover:text-white'>
               <Plus className='mr-2 shrink-0' size={16} />
-              <span className='truncate'>Search</span>
+              <span className='truncate'>Create playlist</span>
             </div>
           </div>
         </div>
-        <div className='mt-4 pl-3'>Library</div>
+        <div className='mt-4 pl-3'>
+          <span className='text-sm font-medium text-muted-foreground'>
+            Library
+          </span>
+          <div className='group flex min-h-[27px] w-full items-center space-x-2 py-1 pr-3 text-sm font-medium text-muted-foreground grayscale transition-all hover:bg-primary/5 hover:text-white hover:grayscale-0 '>
+            <div
+              className='
+                    relative 
+                    min-h-[24px] 
+                    min-w-[24px] 
+                    overflow-hidden 
+                    rounded-md
+                    '
+            >
+              <Image
+                fill
+                src={'/images/liked.png'}
+                alt='MediaItem'
+                className='object-cover'
+              />
+            </div>
+            <div className='flex flex-col'>
+              <span className='line-clamp-1 truncate text-xs'>
+                Honky Tonk Classics
+              </span>
+              <span className='line-clamp-1 truncate text-xxs'>
+                Playlist - Rasmus Elmersson asdasddsasdss
+              </span>
+            </div>
+          </div>
+        </div>
         <div
           onMouseDown={handleMouseDown}
           onClick={resetWidth}
