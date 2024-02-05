@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { ReactNode } from 'react';
 
+import { SearchCommand } from '@/components/search-command';
 import { Spinner } from '@/components/spinner';
 
 import { Player } from './_components/player';
@@ -25,7 +26,10 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
     <div className='flex h-full dark:bg-[#1F1F1F]'>
       <Sidebar />
       <Player />
-      <main className='h-full flex-1 overflow-y-auto'>{children}</main>
+      <main className='h-full flex-1 overflow-y-auto'>
+        <SearchCommand />
+        {children}
+      </main>
     </div>
   );
 };
