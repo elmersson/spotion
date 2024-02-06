@@ -1,61 +1,162 @@
-'use client';
-import type { Artist, SearchResults } from '@spotify/web-api-ts-sdk';
-import { SpotifyApi } from '@spotify/web-api-ts-sdk';
-import { signOut, useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
-
-import { Button } from '@/components/ui/button';
-import sdk from '@/lib/ClientInstance';
+import { Header } from '../../_components/header';
+import { ListItem } from '../../_components/listitem';
+import { ShowItem } from '../../_components/showitem';
 
 export default function Home() {
-  const session = useSession();
-
   return (
-    <div>
-      Home
-      {/* <p>Logged in as {session.data?.user?.name}</p>
-      <Button onClick={() => signOut()}>Sign out</Button> */}
-      {/* <SpotifySearch sdk={sdk} /> */}
+    <div
+      className='
+size-full 
+overflow-hidden 
+overflow-y-auto 
+rounded-lg 
+bg-neutral-900
+'
+    >
+      <Header>
+        <div className='flex items-center justify-between'>
+          <h1 className='text-2xl font-semibold text-white'>Recantly played</h1>
+        </div>
+        <div
+          className='
+        mt-4 
+        grid 
+        grid-cols-2 
+        gap-4 
+        sm:grid-cols-3 
+        md:grid-cols-3 
+        lg:grid-cols-4 
+        xl:grid-cols-5 
+        2xl:grid-cols-8
+      '
+        >
+          <ShowItem
+            author='Rasmus Elmersson'
+            title='Test song'
+            imagePath='/images/liked.png'
+          />
+          <ShowItem
+            author='Rasmus Elmersson'
+            title='Test song'
+            imagePath='/images/liked.png'
+          />
+          <ShowItem
+            author='Rasmus Elmersson'
+            title='Test song'
+            imagePath='/images/liked.png'
+          />
+          <ShowItem
+            author='Rasmus Elmersson'
+            title='Test song'
+            imagePath='/images/liked.png'
+          />
+        </div>
+      </Header>
+      <div className='mb-7 mt-2 px-6'>
+        <div className='flex items-center justify-between'>
+          <h1 className='text-xl font-semibold text-white'>Your shows</h1>
+        </div>
+        <div
+          className='
+              mb-2 
+              mt-4 
+              grid 
+              grid-cols-1 
+              gap-3 
+              sm:grid-cols-2
+              lg:grid-cols-3
+              xl:grid-cols-4
+              2xl:grid-cols-5
+            '
+        >
+          <ListItem
+            name='test med massa text som inte vet var dent ska'
+            image='/images/liked.png'
+          />
+          <ListItem
+            name='test med massa text som inte vet var dent ska'
+            image='/images/liked.png'
+          />
+          <ListItem
+            name='test med massa text som inte vet var dent ska'
+            image='/images/liked.png'
+          />
+          <ListItem
+            name='test med massa text som inte vet var dent ska'
+            image='/images/liked.png'
+          />
+        </div>
+      </div>
+      <div className='mb-7 mt-2 px-6'>
+        <div className='flex items-center justify-between'>
+          <h1 className='text-xl font-semibold text-white'>Others play</h1>
+        </div>
+        <div
+          className='
+              mb-2 
+              mt-4 
+              grid 
+              grid-cols-1 
+              gap-3 
+              sm:grid-cols-2
+              lg:grid-cols-3
+              xl:grid-cols-4
+              2xl:grid-cols-5
+            '
+        >
+          <ListItem
+            name='test med massa text som inte vet var dent ska'
+            image='/images/liked.png'
+          />
+          <ListItem
+            name='test med massa text som inte vet var dent ska'
+            image='/images/liked.png'
+          />
+          <ListItem
+            name='test med massa text som inte vet var dent ska'
+            image='/images/liked.png'
+          />
+          <ListItem
+            name='test med massa text som inte vet var dent ska'
+            image='/images/liked.png'
+          />
+        </div>
+      </div>
+      <div className='mb-7 mt-2 px-6'>
+        <div className='flex items-center justify-between'>
+          <h1 className='text-xl font-semibold text-white'>Your suggestions</h1>
+        </div>
+        <div
+          className='
+              mb-2 
+              mt-4 
+              grid 
+              grid-cols-1 
+              gap-3 
+              sm:grid-cols-2
+              lg:grid-cols-3
+              xl:grid-cols-4
+              2xl:grid-cols-5
+            '
+        >
+          <ListItem
+            name='test med massa text som inte vet var dent ska'
+            image='/images/liked.png'
+          />
+          <ListItem
+            name='test med massa text som inte vet var dent ska'
+            image='/images/liked.png'
+          />
+          <ListItem
+            name='test med massa text som inte vet var dent ska'
+            image='/images/liked.png'
+          />
+          <ListItem
+            name='test med massa text som inte vet var dent ska'
+            image='/images/liked.png'
+          />
+        </div>
+      </div>
     </div>
   );
 }
-
-// function SpotifySearch({ sdk }: { sdk: SpotifyApi }) {
-//   const [results, setResults] = useState<SearchResults>({} as SearchResults);
-
-//   useEffect(() => {
-//     (async () => {
-//       const results = await sdk.search('Elvis', ['artist']);
-//       setResults(() => results);
-//     })();
-//   }, [sdk]);
-
-//   // generate a table for the results
-//   const tableRows = results.artists?.items.map((artist: Artist) => {
-//     return (
-//       <tr key={artist.id}>
-//         <td>{artist.name}</td>
-//         <td>{artist.popularity}</td>
-//         <td>{artist.followers.total}</td>
-//         <td>{artist.genres}</td>
-//         <td>{artist.images[0].url}</td>
-//       </tr>
-//     );
-//   });
-
-//   return (
-//     <>
-//       <h1>Spotify Search for The Beatles</h1>
-//       <table>
-//         <thead>
-//           <tr>
-//             <th>Name</th>
-//             <th>Popularity</th>
-//             <th>Followers</th>
-//           </tr>
-//         </thead>
-//         <tbody>{tableRows}</tbody>
-//       </table>
-//     </>
-//   );
-// }
