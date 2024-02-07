@@ -5,7 +5,7 @@ import { FC, ReactNode } from 'react';
 import { RxCaretLeft, RxCaretRight } from 'react-icons/rx';
 
 interface HeaderProps {
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 export const Header: FC<HeaderProps> = ({ children }) => {
