@@ -2,6 +2,7 @@
 import { redirect } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 
+import { Footer } from './_components/footer';
 import { Heading } from './_components/heading';
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
         <div className='flex flex-1 flex-col items-center justify-center gap-y-8 px-6 pb-10 text-center md:justify-start'>
           <Heading />
         </div>
+        <Footer />
       </div>
     );
   }
