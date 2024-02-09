@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button';
 import { useScrollTop } from '@/hooks/use-scroll-top';
 import { cn } from '@/lib/utils';
 
+import { Logo } from './logo';
+
 export const Navbar = async () => {
   const session = useSession();
   const scrolled = useScrollTop();
@@ -22,7 +24,7 @@ export const Navbar = async () => {
         scrolled && 'border-b shadow-sm'
       )}
     >
-      <p>logo</p>
+      <Logo />
       <div className='flex w-full items-center justify-between gap-x-2 md:ml-auto md:justify-end'>
         {isLoading && <Spinner />}
         {!isAuthenticated && !isLoading && (
