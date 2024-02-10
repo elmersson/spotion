@@ -1,5 +1,4 @@
 'use client';
-import { redirect } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { ReactNode } from 'react';
 
@@ -16,10 +15,6 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
     <div className='flex h-full items-center justify-center'>
       <Spinner size='lg' />
     </div>;
-  }
-
-  if (!session || session.status !== 'authenticated') {
-    return redirect('/');
   }
 
   return (

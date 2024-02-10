@@ -1,9 +1,8 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 
 import { ModeToggle } from '@/components/mode-toggle';
-import { Spinner } from '@/components/spinner';
 import { Button } from '@/components/ui/button';
 import { useScrollTop } from '@/hooks/use-scroll-top';
 import { cn } from '@/lib/utils';
@@ -11,11 +10,11 @@ import { cn } from '@/lib/utils';
 import { Logo } from './logo';
 
 export const Navbar = async () => {
-  const session = useSession();
   const scrolled = useScrollTop();
 
-  const isLoading = session.status === 'loading';
-  const isAuthenticated = session.status === 'authenticated';
+  const handleLogin = () => {
+    signIn('spotify', { callbackUrl: 'http://localhost:3000' });
+  };
 
   return (
     <div
@@ -26,17 +25,9 @@ export const Navbar = async () => {
     >
       <Logo />
       <div className='flex w-full items-center justify-between gap-x-2 md:ml-auto md:justify-end'>
-        {isLoading && <Spinner />}
-        {!isAuthenticated && !isLoading && (
-          <Button variant='ghost' size='sm'>
-            Log in
-          </Button>
-        )}
-        {isAuthenticated && !isLoading && (
-          <Button variant='ghost' size='sm'>
-            Enter Spotion
-          </Button>
-        )}
+        <Button variant='ghost' size='sm' onClick={handleLogin}>
+          Log in
+        </Button>
         <ModeToggle />
       </div>
     </div>

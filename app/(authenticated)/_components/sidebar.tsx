@@ -88,7 +88,7 @@ export const Sidebar = () => {
     }
   };
 
-  const isHome = pathname === '/home';
+  const isHome = pathname === '/';
   const HomeIcon = isHome ? GoHomeFill : GoHome;
   const isBrowse = pathname === '/browse';
   const BrowseIcon = isBrowse ? PiBrowsersFill : PiBrowsersDuotone;
@@ -132,7 +132,7 @@ export const Sidebar = () => {
           <UserItem />
           <div className='pl-3'>
             <div
-              onClick={() => router.push('/home')}
+              onClick={() => router.push('/')}
               className={cn(
                 'group flex min-h-[27px] w-full items-center py-1 pr-3 text-sm font-medium text-muted-foreground hover:bg-primary/5 hover:text-white',
                 isHome && 'text-white'
