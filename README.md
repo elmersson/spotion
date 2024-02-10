@@ -2,7 +2,7 @@
 
 ## Description
 
-A brain-child from the easy esthetic of Notion universe with the functionality of Spotify.
+A brain-child from the easy esthetic of Notion universe with the functionality of Spotify. Short commands and other usefull things are finally comming to Spotify.
 
 ## Tech-stack
 
