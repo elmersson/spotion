@@ -1,13 +1,10 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { getServerSession } from 'next-auth';
 
-import AuthSessionProvider from '@/components/providers/AuthSessionProvider';
+import { AuthSessionProvider } from '@/components/providers/AuthSessionProvider';
 import { ModalProvider } from '@/components/providers/modal-provider';
 import { ThemeProvider } from '@/components/providers/theme-provider';
-
-import authOptions from './api/auth/[...nextauth]/authOptions';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -34,11 +31,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getServerSession(authOptions);
   return (
     <html lang='en' suppressHydrationWarning>
       <body className={inter.className}>
-        <AuthSessionProvider session={session}>
+        <AuthSessionProvider>
           <ThemeProvider
             attribute='class'
             defaultTheme='dark'

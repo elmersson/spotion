@@ -1,8 +1,17 @@
-import { Header } from '../../_components/header';
-import { ListItem } from '../../_components/listitem';
-import { ShowItem } from '../../_components/showitem';
+import { redirect } from 'next/navigation';
 
-export default function Home() {
+import { getAuthSession } from '@/lib/server-utils';
+
+import { Header } from './_components/header';
+import { ListItem } from './_components/listitem';
+import { ShowItem } from './_components/showitem';
+
+export default async function Home() {
+  const session = await getAuthSession();
+
+  if (!session) {
+    redirect('/login');
+  }
   return (
     <div
       className='
