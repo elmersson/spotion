@@ -1,7 +1,6 @@
 'use client';
 
 import { ChevronsLeft, MenuIcon, Plus, Search, Settings } from 'lucide-react';
-import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { ElementRef, useRef, useState, useEffect } from 'react';
 import { GoHome, GoHomeFill } from 'react-icons/go';
@@ -11,10 +10,16 @@ import { useMediaQuery } from 'usehooks-ts';
 import { useSearch } from '@/hooks/use-search';
 import { useSettings } from '@/hooks/use-settings';
 import { cn } from '@/lib/utils';
+import { Playlist } from '@/types/types';
 
+import { Library } from './library';
 import { UserItem } from './user-item';
 
-export const Sidebar = () => {
+interface SideBarProps {
+  playlists: Playlist[];
+}
+
+export const Sidebar = ({ playlists }: SideBarProps) => {
   const pathname = usePathname();
   const router = useRouter();
   const isMobile = useMediaQuery('(max-width: 768px)');
@@ -172,33 +177,7 @@ export const Sidebar = () => {
           </div>
         </div>
         <div className='mt-4 pl-3'>
-          <span className='text-sm font-medium text-muted-foreground'>
-            Library
-          </span>
-          <div className='group flex min-h-[27px] w-full items-center space-x-2 py-1 pr-3 text-sm font-medium text-muted-foreground grayscale transition-all hover:bg-primary/5 hover:text-white hover:grayscale-0 '>
-            <div
-              className='
-                    relative 
-                    min-h-[24px] 
-                    min-w-[24px] 
-                    overflow-hidden 
-                    rounded-md
-                    '
-            >
-              <Image
-                fill
-                src={'/images/liked.png'}
-                alt='MediaItem'
-                className='object-cover'
-              />
-            </div>
-            <div className='flex flex-col'>
-              <span className='line-clamp-1 text-xs'>Honky Tonk Classics</span>
-              <span className='line-clamp-1 text-xxs'>
-                Playlist - Rasmus Elmersson asdasddsasdss
-              </span>
-            </div>
-          </div>
+          <Library playlists={playlists} />
         </div>
         <div
           onMouseDown={handleMouseDown}

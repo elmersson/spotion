@@ -12,6 +12,7 @@ export default async function Home() {
   if (!session) {
     redirect('/login');
   }
+
   return (
     <div
       className='
