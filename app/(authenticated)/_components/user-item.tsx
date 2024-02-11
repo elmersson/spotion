@@ -1,3 +1,4 @@
+'use client';
 import { ChevronsLeftRight } from 'lucide-react';
 import { signOut, useSession } from 'next-auth/react';
 
