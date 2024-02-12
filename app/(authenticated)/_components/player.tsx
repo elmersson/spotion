@@ -88,7 +88,7 @@ export const Player = () => {
                 />
               </div>
               <div className='flex flex-col gap-y-1 overflow-hidden'>
-                <p className='truncate text-sm text-white'>Song title</p>
+                <p className='truncate text-sm '>Song title</p>
                 <p className='truncate text-xs text-neutral-400'>
                   By Rasmus Elmersson
                 </p>
@@ -100,8 +100,9 @@ export const Player = () => {
               className='              
               cursor-pointer 
               text-neutral-400 
-              transition 
-              hover:text-white'
+              transition
+              hover:text-black
+              hover:dark:text-white'
             />
           </div>
         </div>
@@ -124,9 +125,10 @@ export const Player = () => {
               cursor-pointer 
               items-center 
               justify-center 
-              rounded-full 
-              bg-white 
-              p-1
+              rounded-full
+              bg-black
+              p-1 
+              dark:bg-white
             '
           >
             <Icon size={25} className='text-black' />
@@ -143,14 +145,15 @@ export const Player = () => {
             md:flex
           '
         >
-          <AiFillStepForward
+          <AiFillStepBackward
             onClick={() => {}}
             size={25}
             className='
               cursor-pointer 
               text-neutral-400 
               transition 
-              hover:text-white
+              hover:text-black
+              hover:dark:text-white
             '
           />
           <div
@@ -164,19 +167,21 @@ export const Player = () => {
               rounded-full 
               bg-neutral-400
               p-1
-              hover:bg-white
+              hover:bg-black
+              hover:dark:bg-white
             '
           >
             <Icon size={25} className='text-secondary' />
           </div>
-          <AiFillStepBackward
+          <AiFillStepForward
             onClick={() => {}}
             size={25}
             className='
               cursor-pointer 
               text-neutral-400 
               transition 
-              hover:text-white
+              hover:text-black
+              hover:dark:text-white
             '
           />
         </div>
@@ -186,8 +191,9 @@ export const Player = () => {
               className='              
               cursor-pointer 
               text-neutral-400 
-              transition 
-              hover:text-white'
+              transition
+              hover:text-black
+              hover:dark:text-white'
               size={30}
             />
             <LuMonitorSpeaker
@@ -195,7 +201,8 @@ export const Player = () => {
               cursor-pointer 
               text-neutral-400 
               transition 
-              hover:text-white'
+              hover:text-black
+              hover:dark:text-white'
               size={30}
             />
             <VolumeIcon
@@ -204,7 +211,8 @@ export const Player = () => {
               cursor-pointer 
               text-neutral-400 
               transition 
-              hover:text-white'
+              hover:text-black
+              hover:dark:text-white'
               size={30}
             />
             <Slider

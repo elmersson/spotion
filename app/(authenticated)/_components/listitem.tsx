@@ -19,12 +19,14 @@ export const ListItem: FC<ListItemProps> = ({ image, name }) => {
     gap-x-4 
     overflow-hidden 
     rounded-md 
-    bg-neutral-100/10
-    pr-4 
+    bg-neutral-900/10
+    pr-4
     grayscale 
     transition 
-    hover:bg-neutral-100/20
-    hover:grayscale-0
+    hover:bg-neutral-900/20
+    hover:grayscale-0 
+    dark:bg-neutral-100/10
+    hover:dark:bg-neutral-100/20
   '
     >
       <div className='relative min-h-[54px] min-w-[54px]'>
@@ -51,7 +53,7 @@ export const ListItem: FC<ListItemProps> = ({ image, name }) => {
           group-hover:opacity-100
         '
       >
-        <FaPlay className='text-neutral-900' size={12} />
+        <FaPlay className='text-neutral-200 dark:text-neutral-900' size={12} />
       </div>
     </div>
   );

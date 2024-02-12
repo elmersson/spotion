@@ -23,11 +23,13 @@ export const ShowItem: FC<ShowItemProps> = ({ author, title, imagePath }) => {
           gap-x-4 
           overflow-hidden 
           rounded-sm 
-          bg-neutral-400/5 
-          grayscale
-          transition 
-          hover:bg-neutral-400/10
-          hover:grayscale-0
+        bg-neutral-800/5 
+          grayscale 
+          transition
+        hover:bg-neutral-800/10 
+          hover:grayscale-0 
+          dark:bg-neutral-400/5
+          hover:dark:bg-neutral-400/10
         '
     >
       <div
@@ -52,9 +54,9 @@ export const ShowItem: FC<ShowItemProps> = ({ author, title, imagePath }) => {
           className='
               line-clamp-1 
               w-full 
-               
               text-xs 
-              text-neutral-400
+              text-neutral-600
+              dark:text-neutral-400
             '
         >
           By {author}

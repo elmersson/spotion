@@ -24,8 +24,8 @@ export const UserActions = () => {
       <div
         onClick={() => router.push('/')}
         className={cn(
-          'group flex min-h-[27px] w-full items-center py-1 pr-3 text-sm font-medium text-muted-foreground hover:bg-primary/5 hover:text-white',
-          isHome && 'text-white'
+          'group flex min-h-[27px] w-full items-center py-1 pr-3 text-sm font-medium text-muted-foreground hover:bg-primary/5 hover:text-black hover:dark:text-white',
+          isHome && 'text-black dark:text-white'
         )}
       >
         <HomeIcon className='mr-2 shrink-0' size={16} />
@@ -33,7 +33,7 @@ export const UserActions = () => {
       </div>
       <div
         onClick={search.onOpen}
-        className='group flex min-h-[27px] w-full items-center py-1 pr-3 text-sm font-medium text-muted-foreground hover:bg-primary/5 hover:text-white'
+        className='group flex min-h-[27px] w-full items-center py-1 pr-3 text-sm font-medium text-muted-foreground hover:bg-primary/5 hover:text-black hover:dark:text-white'
       >
         <Search className='mr-2 shrink-0' size={16} />
         <span className='line-clamp-1'>Search</span>
@@ -41,8 +41,8 @@ export const UserActions = () => {
       <div
         onClick={() => router.push('/browse')}
         className={cn(
-          'group flex min-h-[27px] w-full items-center py-1 pr-3 text-sm font-medium text-muted-foreground hover:bg-primary/5 hover:text-white',
-          isBrowse && 'text-white'
+          'group flex min-h-[27px] w-full items-center py-1 pr-3 text-sm font-medium text-muted-foreground hover:bg-primary/5 hover:text-black hover:dark:text-white',
+          isBrowse && 'text-black dark:text-white'
         )}
       >
         <BrowseIcon className='mr-2 shrink-0' size={16} />
@@ -50,12 +50,12 @@ export const UserActions = () => {
       </div>
       <div
         onClick={settings.onOpen}
-        className='group flex min-h-[27px] w-full items-center py-1 pr-3 text-sm font-medium text-muted-foreground hover:bg-primary/5 hover:text-white'
+        className='group flex min-h-[27px] w-full items-center py-1 pr-3 text-sm font-medium text-muted-foreground hover:bg-primary/5 hover:text-black hover:dark:text-white'
       >
         <Settings className='mr-2 shrink-0' size={16} />
         <span className='line-clamp-1'>Settings</span>
       </div>
-      <div className='group flex min-h-[27px] w-full items-center py-1 pr-3 text-sm font-medium text-muted-foreground hover:bg-primary/5 hover:text-white'>
+      <div className='group flex min-h-[27px] w-full items-center py-1 pr-3 text-sm font-medium text-muted-foreground hover:bg-primary/5 hover:text-black hover:dark:text-white'>
         <Plus className='mr-2 shrink-0' size={16} />
         <span className='truncate'>Create playlist</span>
       </div>

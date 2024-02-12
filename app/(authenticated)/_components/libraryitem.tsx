@@ -7,7 +7,7 @@ interface LibraryItemProps {
 }
 export const LibraryItem = ({ playlist }: LibraryItemProps) => {
   return (
-    <div className='group flex min-h-[27px] w-full items-center space-x-2.5 py-1 pr-3 text-sm font-medium text-muted-foreground grayscale transition-all hover:bg-primary/5 hover:text-white hover:grayscale-0'>
+    <div className='group flex min-h-[27px] w-full items-center space-x-2.5 py-1 pr-3 text-sm font-medium text-muted-foreground grayscale transition-all hover:bg-primary/5 hover:text-black hover:grayscale-0 hover:dark:text-white'>
       <div
         className='
                     relative 

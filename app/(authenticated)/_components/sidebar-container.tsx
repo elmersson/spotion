@@ -36,7 +36,7 @@ export const SidebarContainer = ({ children }: SidebarContainerProps) => {
     if (!isResizingRef.current) return;
     let newWidth = event.clientX;
 
-    if (newWidth < 240) newWidth = 240;
+    if (newWidth < 200) newWidth = 200;
     if (newWidth > 480) newWidth = 480;
 
     if (sidebarRef.current && navbarRef.current) {

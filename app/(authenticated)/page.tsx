@@ -20,12 +20,15 @@ size-full
 overflow-hidden 
 overflow-y-auto 
 rounded-lg 
-bg-neutral-900
+bg-neutral-200
+dark:bg-neutral-900
 '
     >
       <Header>
         <div className='flex items-center justify-between'>
-          <h1 className='text-2xl font-semibold text-white'>Recantly played</h1>
+          <h1 className='text-2xl font-semibold text-black dark:text-white'>
+            Recantly played
+          </h1>
         </div>
         <div
           className='
@@ -64,7 +67,9 @@ bg-neutral-900
       </Header>
       <div className='mb-7 mt-2 px-6'>
         <div className='flex items-center justify-between'>
-          <h1 className='text-xl font-semibold text-white'>Your shows</h1>
+          <h1 className='text-xl font-semibold text-black dark:text-white'>
+            Your shows
+          </h1>
         </div>
         <div
           className='
@@ -99,7 +104,9 @@ bg-neutral-900
       </div>
       <div className='mb-7 mt-2 px-6'>
         <div className='flex items-center justify-between'>
-          <h1 className='text-xl font-semibold text-white'>Others play</h1>
+          <h1 className='text-xl font-semibold text-black dark:text-white'>
+            Others play
+          </h1>
         </div>
         <div
           className='
@@ -134,7 +141,9 @@ bg-neutral-900
       </div>
       <div className='mb-7 mt-2 px-6'>
         <div className='flex items-center justify-between'>
-          <h1 className='text-xl font-semibold text-white'>Your suggestions</h1>
+          <h1 className='text-xl font-semibold text-black dark:text-white'>
+            Your suggestions
+          </h1>
         </div>
         <div
           className='
