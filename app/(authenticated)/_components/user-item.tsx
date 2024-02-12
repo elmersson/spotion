@@ -20,7 +20,7 @@ export const UserItem = () => {
       <DropdownMenuTrigger asChild>
         <div
           role='button'
-          className='flex w-full items-center p-3 text-sm text-muted-foreground hover:bg-primary/5 hover:text-white'
+          className='flex w-full items-center p-3 text-sm text-muted-foreground hover:bg-primary/5 hover:text-black hover:dark:text-white'
         >
           <div className='flex max-w-[160px] items-center gap-x-2 grayscale hover:grayscale-0'>
             <Avatar className='size-5'>
@@ -65,7 +65,7 @@ export const UserItem = () => {
         >
           <Button
             onClick={() => signOut}
-            className='bg-transparent text-white focus-visible:ring-0'
+            className='bg-transparent focus-visible:ring-0 dark:text-white'
           >
             Log out
           </Button>

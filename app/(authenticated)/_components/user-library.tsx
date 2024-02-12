@@ -36,7 +36,7 @@ export const UserLibrary = ({
         {isPlaylist && (
           <AccordionItem value='Playlists'>
             <AccordionTrigger>
-              <span className='text-xs font-medium'>Playlists</span>
+              <span className='text-xs font-medium '>Playlists</span>
             </AccordionTrigger>
             <AccordionContent>
               {playlists.map((playlist) => (
