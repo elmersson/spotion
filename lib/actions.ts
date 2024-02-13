@@ -80,3 +80,26 @@ export const getUserSavedShows = async (
 
   return shows;
 };
+
+export const getPlaylistById = async (
+  session: AuthSession,
+  playlistId: string
+): Promise<Playlist> => {
+  const data = await customGet(
+    `https://api.spotify.com/v1/playlists/${playlistId}`,
+    session
+  );
+  const playlist = data;
+
+  let limit = 50;
+  let currUrl = data.tracks.next;
+
+  while (currUrl !== null) {
+    const nextData = await customGet(currUrl, session);
+    playlist.tracks.items.push(...nextData.items);
+    limit += 50;
+    currUrl = nextData.next;
+  }
+
+  return playlist;
+};

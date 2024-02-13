@@ -1,4 +1,7 @@
+'use client';
+
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 import { Playlist } from '@/types/types';
 
@@ -6,8 +9,15 @@ interface LibraryItemProps {
   playlist: Playlist;
 }
 export const LibraryItem = ({ playlist }: LibraryItemProps) => {
+  const router = useRouter();
+  const handlePress = (id: string) => {
+    router.push(`/playlist/${id}`);
+  };
   return (
-    <div className='group flex min-h-[27px] w-full items-center space-x-2.5 py-1 pr-3 text-sm font-medium text-muted-foreground grayscale transition-all hover:bg-primary/5 hover:text-black hover:grayscale-0 hover:dark:text-white'>
+    <div
+      onClick={() => handlePress(playlist.id)}
+      className='group flex min-h-[27px] w-full items-center space-x-2.5 py-1 pr-3 text-sm font-medium text-muted-foreground grayscale-75 transition-all hover:bg-primary/5 hover:text-black hover:grayscale-0 hover:dark:text-white'
+    >
       <div
         className='
                     relative 
@@ -20,7 +30,9 @@ export const LibraryItem = ({ playlist }: LibraryItemProps) => {
         <Image
           fill
           src={
-            playlist.images[0] ? playlist.images[0].url : '/images/liked.png'
+            playlist.images.length > 0
+              ? playlist.images[playlist.images.length - 1].url
+              : '/images/liked.png'
           }
           alt='MediaItem'
           className='object-cover'

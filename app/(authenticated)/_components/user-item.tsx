@@ -15,6 +15,10 @@ import {
 export const UserItem = () => {
   const session = useSession();
 
+  const logout = () => {
+    signOut({ callbackUrl: 'http://localhost:3000/login' });
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -64,7 +68,7 @@ export const UserItem = () => {
           className='w-full cursor-pointer text-muted-foreground'
         >
           <Button
-            onClick={() => signOut}
+            onClick={logout}
             className='bg-transparent focus-visible:ring-0 dark:text-white'
           >
             Log out
