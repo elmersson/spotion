@@ -103,3 +103,10 @@ export const getPlaylistById = async (
 
   return playlist;
 };
+
+export const getAlbumById = async (
+  session: AuthSession,
+  albumId: string
+): Promise<Album> => {
+  return customGet(`https://api.spotify.com/v1/albums/${albumId}`, session);
+};
