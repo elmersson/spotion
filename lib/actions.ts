@@ -5,6 +5,7 @@ import {
   AuthSession,
   Playlist,
   Show,
+  ShowEpisodes,
   Track,
   UserSavedShow,
 } from '@/types/types';
@@ -109,4 +110,20 @@ export const getAlbumById = async (
   albumId: string
 ): Promise<Album> => {
   return customGet(`https://api.spotify.com/v1/albums/${albumId}`, session);
+};
+
+export const getShowById = async (
+  session: AuthSession,
+  showId: string
+): Promise<Show> => {
+  return customGet(`https://api.spotify.com/v1/shows/${showId}`, session);
+};
+
+export const getShowEpisodesById = async (
+  session: AuthSession,
+  showId: string
+): Promise<ShowEpisodes> => {
+  const episodesUrl = `https://api.spotify.com/v1/shows/${showId}/episodes?limit=20`;
+  const data: ShowEpisodes = await customGet(episodesUrl, session);
+  return data;
 };

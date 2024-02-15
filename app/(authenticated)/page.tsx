@@ -3,8 +3,8 @@ import { redirect } from 'next/navigation';
 import { getAuthSession } from '@/lib/server-utils';
 
 import { Header } from './_components/header';
-import { ListItem } from './_components/listitem';
-import { ShowItem } from './_components/showitem';
+import { ListItem } from './_components/list-item';
+import { ShowItem } from './_components/show-item';
 
 export default async function Home() {
   const session = await getAuthSession();

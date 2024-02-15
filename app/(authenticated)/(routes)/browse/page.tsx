@@ -1,4 +1,4 @@
-import { BrowseItem } from '../../_components/browseitem';
+import { BrowseItem } from '../../_components/browse-item';
 import { Header } from '../../_components/header';
 
 export default function Browse() {
