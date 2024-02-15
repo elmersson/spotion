@@ -6,7 +6,7 @@ import {
 } from '@/components/ui/accordion';
 import { Album, Artist, Playlist, Show } from '@/types/types';
 
-import { LibraryItem } from './libraryitem';
+import { LibraryItem } from './library-item';
 
 interface LibraryProps {
   playlists: Playlist[];
@@ -32,56 +32,79 @@ export const UserLibrary = ({
           Library
         </span>
       </div>
-      <Accordion type='multiple'>
-        {isPlaylist && (
-          <AccordionItem value='Playlists'>
-            <AccordionTrigger>
-              <span className='text-xs font-medium '>Playlists</span>
-            </AccordionTrigger>
-            <AccordionContent>
-              {playlists.map((playlist) => (
-                <LibraryItem playlist={playlist} key={playlist.id} />
-              ))}
-            </AccordionContent>
-          </AccordionItem>
-        )}
-        {isArtists && (
-          <AccordionItem value='Artists'>
-            <AccordionTrigger>
-              <span className='text-xs font-medium '>Artists</span>
-            </AccordionTrigger>
-            <AccordionContent>
-              {artists.map((artist) => (
-                <div key={artist.id}>{artist.name}</div>
-              ))}
-            </AccordionContent>
-          </AccordionItem>
-        )}
-        {isAlbums && (
-          <AccordionItem value='Albums'>
-            <AccordionTrigger>
-              <span className='text-xs font-medium '>Albums</span>
-            </AccordionTrigger>
-            <AccordionContent>
-              {albums.map((album) => (
-                <div key={album.id}>{album.name}</div>
-              ))}
-            </AccordionContent>
-          </AccordionItem>
-        )}
-        {isShows && (
-          <AccordionItem value='Shows'>
-            <AccordionTrigger>
-              <span className='text-xs font-medium '>Shows</span>
-            </AccordionTrigger>
-            <AccordionContent>
-              {shows.map((show) => (
-                <div key={show.id}>{show.name}</div>
-              ))}
-            </AccordionContent>
-          </AccordionItem>
-        )}
-      </Accordion>
+      <div className='pl-1'>
+        <Accordion type='multiple'>
+          {isPlaylist && (
+            <AccordionItem value='Playlists'>
+              <AccordionTrigger>
+                <span className='text-xs font-medium '>Playlists</span>
+              </AccordionTrigger>
+              <AccordionContent>
+                {playlists.map((playlist) => (
+                  <LibraryItem
+                    id={playlist.id}
+                    name={playlist.name}
+                    key={playlist.id}
+                    owner={playlist.owner.display_name}
+                    type={playlist.type}
+                    images={playlist.images}
+                  />
+                ))}
+              </AccordionContent>
+            </AccordionItem>
+          )}
+          {isArtists && (
+            <AccordionItem value='Artists'>
+              <AccordionTrigger>
+                <span className='text-xs font-medium '>Artists</span>
+              </AccordionTrigger>
+              <AccordionContent>
+                {artists.map((artist) => (
+                  <div key={artist.id}>{artist.name}</div>
+                ))}
+              </AccordionContent>
+            </AccordionItem>
+          )}
+          {isAlbums && (
+            <AccordionItem value='Albums'>
+              <AccordionTrigger>
+                <span className='text-xs font-medium '>Albums</span>
+              </AccordionTrigger>
+              <AccordionContent>
+                {albums.map((album) => (
+                  <LibraryItem
+                    id={album.id}
+                    name={album.name}
+                    key={album.id}
+                    owner={album.artists[0].name}
+                    type={album.album_type || 'album'}
+                    images={album.images}
+                  />
+                ))}
+              </AccordionContent>
+            </AccordionItem>
+          )}
+          {isShows && (
+            <AccordionItem value='Shows'>
+              <AccordionTrigger>
+                <span className='text-xs font-medium '>Podcasts</span>
+              </AccordionTrigger>
+              <AccordionContent>
+                {shows.map((show) => (
+                  <LibraryItem
+                    id={show.id}
+                    name={show.name}
+                    key={show.id}
+                    owner={show.publisher}
+                    type={show.type}
+                    images={show.images}
+                  />
+                ))}
+              </AccordionContent>
+            </AccordionItem>
+          )}
+        </Accordion>
+      </div>
     </div>
   );
 };

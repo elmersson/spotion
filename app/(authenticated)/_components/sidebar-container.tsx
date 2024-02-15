@@ -115,7 +115,7 @@ export const SidebarContainer = ({ children }: SidebarContainerProps) => {
             isMobile && 'opacity-100'
           )}
         >
-          <ChevronsLeft className='size-5' />
+          <ChevronsLeft className='mt-0.5 size-5' />
         </div>
         {children}
         <div

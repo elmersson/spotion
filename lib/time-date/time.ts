@@ -1,3 +1,5 @@
+import { Album, Playlist } from '@/types/types';
+
 export function formatDuration(totalDurationMs: number): string {
   const totalMinutes = totalDurationMs / 1000 / 60;
 
@@ -21,3 +23,21 @@ export function convertMsToMinutesSeconds(ms: number): string {
 
   return `${formattedMinutes}:${formattedSeconds}`;
 }
+
+export const calculateTotalDuration = (playlist: Playlist | Album) => {
+  const isPlaylist = (playlist: Playlist | Album): playlist is Playlist => {
+    return 'followers' in playlist;
+  };
+
+  if (isPlaylist(playlist)) {
+    return playlist.tracks.items.reduce(
+      (total, { track }) => total + track.duration_ms,
+      0
+    );
+  } else {
+    return playlist.tracks.items.reduce(
+      (total, track) => total + track.duration_ms,
+      0
+    );
+  }
+};

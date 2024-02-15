@@ -42,7 +42,7 @@ export const TracksTable = ({ playlist }: TracksTableProps) => {
   };
 
   return (
-    <Table className='mb-[80px] bg-neutral-200 dark:bg-neutral-900'>
+    <Table className='mb-[80px]'>
       <TableHeader>
         <TableRow>
           <TableHead>#</TableHead>

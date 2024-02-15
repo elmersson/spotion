@@ -1,4 +1,5 @@
-import { MoreHorizontal } from 'lucide-react';
+import { Dot, MoreHorizontal } from 'lucide-react';
+import { Fragment } from 'react';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { FaPlay } from 'react-icons/fa';
 
@@ -6,6 +7,8 @@ import { TracksHeader } from '@/app/(authenticated)/_components/tracks-header';
 import { TracksTable } from '@/app/(authenticated)/_components/tracks-table';
 import { getAlbumById } from '@/lib/actions';
 import { getAuthSession } from '@/lib/server-utils';
+import { formatDuration } from '@/lib/time-date';
+import { calculateTotalDuration } from '@/lib/time-date/time';
 
 interface AlbumProps {
   params: {
@@ -23,8 +26,28 @@ export default async function Album({ params }: AlbumProps) {
   const album = await getAlbumById(session, params.albumId);
 
   return (
-    <div className='bg-neutral-200 dark:bg-neutral-900'>
-      <TracksHeader playlist={album} />
+    <div>
+      <TracksHeader images={album.images} type='album' name={album.name}>
+        <>
+          {album.artists.map((artist) => (
+            <Fragment key={artist.id}>
+              <p className='text-xs hover:underline'>{artist.name}</p>
+            </Fragment>
+          ))}
+          <Dot size={15} />
+          <p className='text-xs hover:underline'>{album.release_date}</p>
+          <Dot size={15} />
+          <span>{album.tracks.total.toLocaleString()} songs</span>
+          {album.tracks.items.length > 0 && (
+            <>
+              <Dot size={15} />
+              <span className='text-muted-foreground'>
+                {formatDuration(calculateTotalDuration(album))}
+              </span>
+            </>
+          )}
+        </>
+      </TracksHeader>
       <div className='ml-6 mt-4 flex flex-row items-center gap-6'>
         <div
           className='

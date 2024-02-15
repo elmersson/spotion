@@ -22,6 +22,7 @@ export const UserActions = () => {
   return (
     <div className='pl-3'>
       <div
+        role='button'
         onClick={() => router.push('/')}
         className={cn(
           'group flex min-h-[27px] w-full items-center py-1 pr-3 text-sm font-medium text-muted-foreground hover:bg-primary/5 hover:text-black hover:dark:text-white',
@@ -32,6 +33,7 @@ export const UserActions = () => {
         <span className='line-clamp-1'>Home</span>
       </div>
       <div
+        role='button'
         onClick={search.onOpen}
         className='group flex min-h-[27px] w-full items-center py-1 pr-3 text-sm font-medium text-muted-foreground hover:bg-primary/5 hover:text-black hover:dark:text-white'
       >
@@ -39,6 +41,7 @@ export const UserActions = () => {
         <span className='line-clamp-1'>Search</span>
       </div>
       <div
+        role='button'
         onClick={() => router.push('/browse')}
         className={cn(
           'group flex min-h-[27px] w-full items-center py-1 pr-3 text-sm font-medium text-muted-foreground hover:bg-primary/5 hover:text-black hover:dark:text-white',
@@ -49,13 +52,17 @@ export const UserActions = () => {
         <span className='line-clamp-1'>Browse</span>
       </div>
       <div
+        role='button'
         onClick={settings.onOpen}
         className='group flex min-h-[27px] w-full items-center py-1 pr-3 text-sm font-medium text-muted-foreground hover:bg-primary/5 hover:text-black hover:dark:text-white'
       >
         <Settings className='mr-2 shrink-0' size={16} />
         <span className='line-clamp-1'>Settings</span>
       </div>
-      <div className='group flex min-h-[27px] w-full items-center py-1 pr-3 text-sm font-medium text-muted-foreground hover:bg-primary/5 hover:text-black hover:dark:text-white'>
+      <div
+        role='button'
+        className='group flex min-h-[27px] w-full items-center py-1 pr-3 text-sm font-medium text-muted-foreground hover:bg-primary/5 hover:text-black hover:dark:text-white'
+      >
         <Plus className='mr-2 shrink-0' size={16} />
         <span className='truncate'>Create playlist</span>
       </div>
