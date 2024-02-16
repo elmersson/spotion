@@ -186,3 +186,13 @@ interface ResumePoint {
   fully_played: boolean;
   resume_position_ms: number;
 }
+
+export interface Discography {
+  artist: Artist;
+  topTracks: Track[];
+  albums: Album[];
+  singles: Album[];
+  appearsOn: Album[];
+  compilations: Album[];
+  relatedArtists: Artist[];
+}

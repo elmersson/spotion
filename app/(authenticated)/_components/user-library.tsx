@@ -60,7 +60,13 @@ export const UserLibrary = ({
               </AccordionTrigger>
               <AccordionContent>
                 {artists.map((artist) => (
-                  <div key={artist.id}>{artist.name}</div>
+                  <LibraryItem
+                    id={artist.id}
+                    name={artist.name}
+                    key={artist.id}
+                    type='artist'
+                    images={artist.images}
+                  />
                 ))}
               </AccordionContent>
             </AccordionItem>

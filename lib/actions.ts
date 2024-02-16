@@ -3,6 +3,7 @@ import {
   Album,
   Artist,
   AuthSession,
+  Discography,
   Playlist,
   Show,
   ShowEpisodes,
@@ -126,4 +127,41 @@ export const getShowEpisodesById = async (
   const episodesUrl = `https://api.spotify.com/v1/shows/${showId}/episodes?limit=20`;
   const data: ShowEpisodes = await customGet(episodesUrl, session);
   return data;
+};
+
+export const getArtistById = async (
+  session: AuthSession,
+  artistId: string
+): Promise<Artist> => {
+  return customGet(`https://api.spotify.com/v1/artists/${artistId}`, session);
+};
+
+export const getArtistDiscography = async (
+  session: AuthSession,
+  artistId: string
+): Promise<Discography> => {
+  const baseUrl = `https://api.spotify.com/v1/artists/${artistId}`;
+
+  const urls = [
+    '',
+    '/top-tracks?market=from_token',
+    '/albums?include_groups=album',
+    '/albums?include_groups=single',
+    '/albums?include_groups=appears_on',
+    '/albums?include_groups=compilation',
+    '/related-artists',
+  ];
+
+  const promises = urls.map((url) => customGet(`${baseUrl}${url}`, session));
+  const results = await Promise.all(promises);
+
+  return {
+    artist: results[0],
+    topTracks: results[1].tracks,
+    albums: results[2].items,
+    singles: results[3].items,
+    appearsOn: results[4].items,
+    compilations: results[5].items,
+    relatedArtists: results[6].artists,
+  };
 };
