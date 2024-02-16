@@ -8,10 +8,17 @@ interface ShowItemProps {
   author: string;
   title: string;
   imagePath: string;
+  onClick?: () => void;
 }
-export const ShowItem: FC<ShowItemProps> = ({ author, title, imagePath }) => {
+export const ShowItem: FC<ShowItemProps> = ({
+  author,
+  title,
+  imagePath,
+  onClick,
+}) => {
   return (
     <div
+      onClick={onClick}
       className='
           group 
           relative 
@@ -24,7 +31,7 @@ export const ShowItem: FC<ShowItemProps> = ({ author, title, imagePath }) => {
           overflow-hidden 
           rounded-sm 
         bg-neutral-800/5 
-          grayscale 
+          grayscale-50 
           transition
         hover:bg-neutral-800/10 
           hover:grayscale-0 

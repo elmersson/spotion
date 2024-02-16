@@ -1,4 +1,3 @@
-'use client';
 import { Clock3 } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -6,61 +5,40 @@ import { Fragment } from 'react';
 
 import {
   Table,
-  TableBody,
-  TableCell,
-  TableHead,
   TableHeader,
   TableRow,
+  TableHead,
+  TableBody,
+  TableCell,
 } from '@/components/ui/table';
-import { convertMsToMinutesSeconds, formatDateString } from '@/lib/time-date';
-import { Album, Playlist } from '@/types/types';
+import { convertMsToMinutesSeconds } from '@/lib/time-date';
+import { Track } from '@/types/types';
 
-interface TracksTableProps {
-  playlist: Playlist | Album;
+interface ArtistPopularProps {
+  tracks: Track[];
 }
-
-export const TracksTable = ({ playlist }: TracksTableProps) => {
+export const ArtistPopular = ({ tracks }: ArtistPopularProps) => {
   const router = useRouter();
-
-  const type = (playlist: Playlist | Album): playlist is Playlist => {
-    return 'followers' in playlist;
-  };
-
-  const isPlaylist = type(playlist);
-
-  const tracks = isPlaylist
-    ? playlist.tracks.items.map((item) => item.track)
-    : playlist.tracks.items;
-
-  const addedDate = (index: number): string => {
-    if (isPlaylist) {
-      const date = playlist.tracks.items[index].added_at;
-
-      return formatDateString(date);
-    }
-    return '';
-  };
-
   return (
     <Table className='mb-[80px]'>
       <TableHeader>
         <TableRow>
           <TableHead>#</TableHead>
-          <TableHead>Title</TableHead>
-          {isPlaylist && <TableHead>Album</TableHead>}
-          {isPlaylist && <TableHead>Date added</TableHead>}
+          <TableHead>Name</TableHead>
+          <TableHead>Album</TableHead>
           <TableHead className='flex items-center justify-end'>
             <Clock3 size={16} />
           </TableHead>
         </TableRow>
       </TableHeader>
+
       <TableBody>
-        {tracks.map((track, index) => {
-          return (
-            <TableRow key={track.id} className='grayscale-75 hover:grayscale-0'>
+        {tracks.length > 0 &&
+          tracks.map((track, index) => (
+            <TableRow key={track.id}>
               <TableCell>{index + 1}</TableCell>
               <TableCell className='flex flex-row gap-3'>
-                {isPlaylist && track.album.images.length > 0 && (
+                {track.album.images.length > 0 && (
                   <Image
                     src={track.album.images[track.album.images.length - 1].url}
                     width={32}
@@ -87,26 +65,17 @@ export const TracksTable = ({ playlist }: TracksTableProps) => {
                   </div>
                 </div>
               </TableCell>
-              {isPlaylist && (
-                <TableCell
-                  onClick={() => router.push(`../album/${track.album.id}`)}
-                  className='hover:underline '
-                >
-                  <span role='button'>{track.album.name}</span>
-                </TableCell>
-              )}
-
-              {isPlaylist && (
-                <TableCell className='text-sm text-muted-foreground'>
-                  {addedDate(index)}
-                </TableCell>
-              )}
+              <TableCell
+                onClick={() => router.push(`../album/${track.album.id}`)}
+                className='hover:underline '
+              >
+                <span role='button'>{track.album.name}</span>
+              </TableCell>
               <TableCell className='text-right text-sm text-muted-foreground'>
                 {convertMsToMinutesSeconds(track.duration_ms)}
               </TableCell>
             </TableRow>
-          );
-        })}
+          ))}
       </TableBody>
     </Table>
   );

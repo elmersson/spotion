@@ -44,7 +44,8 @@ export const LibraryItem = ({
       <div className='flex flex-col'>
         <span className='line-clamp-1 text-xs'>{name}</span>
         <span className='line-clamp-1 text-xxs capitalize'>
-          {type === 'show' ? 'podcast' : type} - {owner}
+          {type === 'show' ? 'podcast' : type}
+          {owner ? ` - ${owner}` : ''}
         </span>
       </div>
     </div>
