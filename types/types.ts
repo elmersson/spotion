@@ -196,3 +196,32 @@ export interface Discography {
   compilations: Album[];
   relatedArtists: Artist[];
 }
+
+export interface RecentlyPlayed {
+  items: RecentlyPlayedItem[];
+  next: string;
+  cursors: Cursors;
+  limit: number;
+  href: string;
+}
+
+interface RecentlyPlayedItem {
+  track: Track;
+  played_at: string;
+  context: Context;
+}
+
+interface Context {
+  type: string;
+  href: string;
+  external_urls: ExternalUrls;
+}
+
+interface ExternalUrls {
+  spotify: string;
+}
+
+interface Cursors {
+  after: string;
+  before: string;
+}
