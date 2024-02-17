@@ -1,5 +1,8 @@
+import { it } from 'node:test';
+
 import { redirect } from 'next/navigation';
 
+import { getRecentlyPlayedTracks } from '@/lib/actions';
 import { getAuthSession } from '@/lib/server-utils';
 
 import { Header } from './_components/header';
@@ -12,6 +15,8 @@ export default async function Home() {
   if (!session) {
     redirect('/login');
   }
+
+  const recentlyPlayed = await getRecentlyPlayedTracks(session);
 
   return (
     <div
@@ -43,26 +48,14 @@ dark:bg-neutral-900
         2xl:grid-cols-8
       '
         >
-          <ShowItem
-            author='Rasmus Elmersson'
-            title='Test song'
-            imagePath='/images/liked.png'
-          />
-          <ShowItem
-            author='Rasmus Elmersson'
-            title='Test song'
-            imagePath='/images/liked.png'
-          />
-          <ShowItem
-            author='Rasmus Elmersson'
-            title='Test song'
-            imagePath='/images/liked.png'
-          />
-          <ShowItem
-            author='Rasmus Elmersson'
-            title='Test song'
-            imagePath='/images/liked.png'
-          />
+          {recentlyPlayed.items.map((item) => (
+            <ShowItem
+              key={item.track.id}
+              author={item.track.artists[0].name}
+              title={item.track.name}
+              imagePath={item.track.album.images[0].url}
+            />
+          ))}
         </div>
       </Header>
       <div className='mb-7 mt-2 px-6'>

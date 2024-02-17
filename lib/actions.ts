@@ -5,9 +5,11 @@ import {
   AuthSession,
   Discography,
   Playlist,
+  RecentlyPlayed,
   Show,
   ShowEpisodes,
   Track,
+  TrackAnalysis,
   UserSavedShow,
 } from '@/types/types';
 
@@ -24,20 +26,22 @@ export const getUserLikedPlaylists = async (
 };
 
 export const getUserLikedAlbums = async (
-  session: AuthSession
+  session: AuthSession,
+  limit = 50
 ): Promise<Album[]> => {
   const data = await customGet(
-    `https://api.spotify.com/v1/me/albums?market=from_token&limit=50`,
+    `https://api.spotify.com/v1/me/albums?market=from_token&limit=${limit}`,
     session
   );
   return data.items.map((item: any) => item.album);
 };
 
 export const getUserLikedArtists = async (
-  session: AuthSession
+  session: AuthSession,
+  limit = 50
 ): Promise<Artist[]> => {
   const data = await customGet(
-    `https://api.spotify.com/v1/me/following?type=artist&limit=50`,
+    `https://api.spotify.com/v1/me/following?type=artist&limit=${limit}`,
     session
   );
   return data.artists.items;
@@ -71,10 +75,11 @@ export const getUserLikedSongs = async (
 };
 
 export const getUserSavedShows = async (
-  session: AuthSession
+  session: AuthSession,
+  limit = 50
 ): Promise<Show[]> => {
   const data = await customGet(
-    `https://api.spotify.com/v1/me/shows?limit=50`,
+    `https://api.spotify.com/v1/me/shows?limit=${limit}`,
     session
   );
 
@@ -122,9 +127,10 @@ export const getShowById = async (
 
 export const getShowEpisodesById = async (
   session: AuthSession,
-  showId: string
+  showId: string,
+  limit = 20
 ): Promise<ShowEpisodes> => {
-  const episodesUrl = `https://api.spotify.com/v1/shows/${showId}/episodes?limit=20`;
+  const episodesUrl = `https://api.spotify.com/v1/shows/${showId}/episodes?limit=${limit}`;
   const data: ShowEpisodes = await customGet(episodesUrl, session);
   return data;
 };
@@ -164,4 +170,95 @@ export const getArtistDiscography = async (
     compilations: results[5].items,
     relatedArtists: results[6].artists,
   };
+};
+
+export const getRecentlyPlayedTracks = async (
+  session: AuthSession,
+  limit = 50
+): Promise<RecentlyPlayed> => {
+  return customGet(
+    `https://api.spotify.com/v1/me/player/recently-played?limit=${limit}`,
+    session
+  );
+};
+
+export const getTrackAnalysis = async (
+  session: AuthSession,
+  trackId: string
+): Promise<TrackAnalysis> => {
+  return customGet(
+    `https://api.spotify.com/v1/audio-features/${trackId}`,
+    session
+  );
+};
+
+export const getTrackById = async (
+  session: AuthSession,
+  trackId: string
+): Promise<Track> => {
+  return customGet(`https://api.spotify.com/v1/tracks/${trackId}`, session);
+};
+
+export const getTrackRecommendations = async (
+  session: AuthSession,
+  trackId: string
+): Promise<Track[]> => {
+  const trackAnalysis = await getTrackAnalysis(session, trackId);
+
+  const trackFeatures = {
+    acousticness: 1,
+    danceability: 1,
+    energy: 1,
+    instrumentalness: 1,
+    key: 1,
+    liveness: 1,
+    loudness: 1,
+    mode: 1,
+    speechiness: 1,
+    tempo: 1,
+    valence: 1,
+  };
+
+  const track = await getTrackById(session, trackId);
+  const artist = await getArtistById(session, track.artists[0].id);
+
+  let endpoint = `https://api.spotify.com/v1/recommendations?limit=30&seed_artists=${artist.id}&seed_tracks=${trackId}`;
+
+  Object.entries(trackAnalysis).forEach(([key, value]) => {
+    // eslint-disable-next-line no-prototype-builtins
+    if (trackFeatures.hasOwnProperty(key)) {
+      endpoint += `&target_${key}=${value}`;
+    }
+  });
+
+  const data = await customGet(endpoint, session);
+
+  return data.tracks;
+};
+
+export const getNewReleases = async (
+  session: AuthSession,
+  limit: 15
+): Promise<Album[]> => {
+  return customGet(
+    `https://api.spotify.com/v1/browse/new-releases?country=IN&limit=${limit}`,
+    session
+  ).then((data) => data.albums.items);
+};
+
+export const getUserTopArtists = async (
+  session: AuthSession,
+  limit: number = 20
+): Promise<Artist[]> => {
+  const url = `https://api.spotify.com/v1/me/top/artists?limit=${limit}`;
+  const data = await customGet(url, session);
+
+  return data.items.map((item: any) => ({
+    id: item.id,
+    name: item.name,
+    genres: item.genres,
+    followers: item.followers.total,
+    images: item.images,
+    popularity: item.popularity,
+  }));
 };
