@@ -28,6 +28,7 @@ export const Slider: FC<SlideProps> = ({ value = 1, onChange }) => {
       value={[value]}
       onValueChange={handleChange}
       max={1}
+      min={0}
       step={0.01}
       aria-label='Volume'
     >

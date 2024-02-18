@@ -7,7 +7,7 @@ import { Track } from '@/types/types';
 interface PlayerInfoProps {
   track: Track;
 }
-export const PlayerInfo = () => {
+export const PlayerInfo = ({ track }: PlayerInfoProps) => {
   const [isLiked, setIsLiked] = useState(false);
 
   const HeartIcon = isLiked ? AiFillHeart : AiOutlineHeart;
@@ -42,15 +42,15 @@ export const PlayerInfo = () => {
           >
             <Image
               fill
-              src={'/images/liked.png'}
+              src={track.album.images[0].url}
               alt='MediaItem'
               className='object-cover'
             />
           </div>
           <div className='flex flex-col gap-y-1 overflow-hidden'>
-            <p className='truncate text-sm '>Song title</p>
+            <p className='truncate text-sm '>{track.name}</p>
             <p className='truncate text-xs text-neutral-400'>
-              By Rasmus Elmersson
+              By {track.artists[0].name}
             </p>
           </div>
         </div>
