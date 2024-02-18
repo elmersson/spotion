@@ -225,3 +225,8 @@ interface Cursors {
   after: string;
   before: string;
 }
+
+export interface TopItemsResult {
+  artists: Artist[];
+  tracks: Track[];
+}
