@@ -41,3 +41,7 @@ export const calculateTotalDuration = (playlist: Playlist | Album) => {
     );
   }
 };
+
+export const formatPlayerTime = (seconds: number) => {
+  return new Date(seconds * 1000).toISOString().substring(15, 15 + 4);
+};

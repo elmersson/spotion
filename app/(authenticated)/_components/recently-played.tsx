@@ -14,6 +14,8 @@ import {
 import { convertMsToMinutesSeconds } from '@/lib/time-date';
 import { RecentlyPlayed } from '@/types/types';
 
+import { PlayButton } from './play-button';
+
 interface RecentlyPlayedTableProps {
   recentlyPlayed: RecentlyPlayed;
 }
@@ -72,6 +74,9 @@ export const RecentlyPlayedTable = ({
                       </Fragment>
                     ))}
                   </div>
+                </div>
+                <div>
+                  <PlayButton track={item.track} />
                 </div>
               </TableCell>
               <TableCell

@@ -2,8 +2,9 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 
-import { AuthSessionProvider } from '@/components/providers/AuthSessionProvider';
+import { AuthSessionProvider } from '@/components/providers/auth-session-provider';
 import { ModalProvider } from '@/components/providers/modal-provider';
+import PlayerProvider from '@/components/providers/player-provider';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -35,17 +36,19 @@ export default async function RootLayout({
     <html lang='en' suppressHydrationWarning>
       <body className={inter.className}>
         <AuthSessionProvider>
-          <ThemeProvider
-            attribute='class'
-            defaultTheme='dark'
-            enableSystem
-            disableTransitionOnChange
-            storageKey='spotion-theme'
-          >
-            <ModalProvider />
+          <PlayerProvider>
+            <ThemeProvider
+              attribute='class'
+              defaultTheme='dark'
+              enableSystem
+              disableTransitionOnChange
+              storageKey='spotion-theme'
+            >
+              <ModalProvider />
 
-            {children}
-          </ThemeProvider>
+              {children}
+            </ThemeProvider>
+          </PlayerProvider>
         </AuthSessionProvider>
       </body>
     </html>
