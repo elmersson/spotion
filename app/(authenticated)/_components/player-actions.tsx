@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import {
   HiOutlineQueueList,
   HiSpeakerWave,
@@ -8,15 +8,20 @@ import { LuMonitorSpeaker } from 'react-icons/lu';
 
 import { Slider } from './slider';
 
-export const PlayerActions = () => {
-  const [volume, setVolume] = useState(1);
+interface PlayerActionsProps {
+  volume: number;
+  setVolume: Dispatch<SetStateAction<number>>;
+}
 
+export const PlayerActions = ({ volume, setVolume }: PlayerActionsProps) => {
+  const [muteVolume, setMuteVolume] = useState<number>(0);
   const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
 
   const toggleMute = () => {
     if (volume === 0) {
-      setVolume(1);
+      setVolume(muteVolume);
     } else {
+      setMuteVolume(volume);
       setVolume(0);
     }
   };

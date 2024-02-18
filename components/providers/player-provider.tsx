@@ -24,6 +24,8 @@ interface PlayerProviderState {
   setSlider: Dispatch<SetStateAction<number>>;
   drag: number;
   setDrag: Dispatch<SetStateAction<number>>;
+  volume: number;
+  setVolume: Dispatch<SetStateAction<number>>;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -43,6 +45,7 @@ export default function PlayerProvider({ children }: PlayerProviderProps) {
   const [currentTime, setCurrentTime] = useState(0);
   const [slider, setSlider] = useState(1);
   const [drag, setDrag] = useState(0);
+  const [volume, setVolume] = useState<HTMLMediaElement['volume']>(0.5);
 
   useEffect(() => {
     if (!currentTrack) return;
@@ -78,6 +81,12 @@ export default function PlayerProvider({ children }: PlayerProviderProps) {
       setCurrentTrackAudio(null);
     };
   }, [currentTrack]);
+
+  useEffect(() => {
+    if (currentTrackAudio) {
+      currentTrackAudio.volume = volume;
+    }
+  }, [volume, currentTrackAudio]);
 
   useEffect(() => {
     const handlePlay = async () => {
@@ -125,6 +134,8 @@ export default function PlayerProvider({ children }: PlayerProviderProps) {
         setSlider,
         drag,
         setDrag,
+        volume,
+        setVolume,
       }}
     >
       {children}
