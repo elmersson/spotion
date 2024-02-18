@@ -8,6 +8,7 @@ import {
   RecentlyPlayed,
   Show,
   ShowEpisodes,
+  TopItemsResult,
   Track,
   TrackAnalysis,
   UserSavedShow,
@@ -238,7 +239,7 @@ export const getTrackRecommendations = async (
 
 export const getNewReleases = async (
   session: AuthSession,
-  limit: 15
+  limit = 15
 ): Promise<Album[]> => {
   return customGet(
     `https://api.spotify.com/v1/browse/new-releases?country=IN&limit=${limit}`,
@@ -246,19 +247,30 @@ export const getNewReleases = async (
   ).then((data) => data.albums.items);
 };
 
-export const getUserTopArtists = async (
-  session: AuthSession,
-  limit: number = 20
-): Promise<Artist[]> => {
-  const url = `https://api.spotify.com/v1/me/top/artists?limit=${limit}`;
-  const data = await customGet(url, session);
+export const getTopItems = async ({
+  session,
+  timeRange = 'short_term',
+  limit = 50,
+}: {
+  session: AuthSession;
+  timeRange?: string;
+  limit?: number;
+}): Promise<TopItemsResult> => {
+  const artistsUrl = `https://api.spotify.com/v1/me/top/artists?time_range=${timeRange}&limit=${limit}`;
+  const tracksUrl = `https://api.spotify.com/v1/me/top/tracks?time_range=${timeRange}&limit=${limit}`;
 
-  return data.items.map((item: any) => ({
-    id: item.id,
-    name: item.name,
-    genres: item.genres,
-    followers: item.followers.total,
-    images: item.images,
-    popularity: item.popularity,
-  }));
+  const [artistsResponse, tracksResponse] = await Promise.all([
+    customGet(artistsUrl, session),
+    customGet(tracksUrl, session),
+  ]);
+
+  const artists = artistsResponse.items;
+  const tracks = tracksResponse.items;
+
+  console.log('artists', artists);
+
+  return {
+    artists: artists,
+    tracks: tracks,
+  };
 };
