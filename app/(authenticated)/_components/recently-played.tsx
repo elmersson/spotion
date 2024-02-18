@@ -15,6 +15,7 @@ import { convertMsToMinutesSeconds } from '@/lib/time-date';
 import { RecentlyPlayed } from '@/types/types';
 
 import { PlayButton } from './play-button';
+import { TrackCell } from './track-cell';
 
 interface RecentlyPlayedTableProps {
   recentlyPlayed: RecentlyPlayed;
@@ -42,42 +43,8 @@ export const RecentlyPlayedTable = ({
           recentlyPlayed.items.map((item, index) => (
             <TableRow key={item.track.id}>
               <TableCell>{index + 1}</TableCell>
-              <TableCell className='flex flex-row gap-3'>
-                {item.track.album.images.length > 0 && (
-                  <Image
-                    src={
-                      item.track.album.images[
-                        item.track.album.images.length - 1
-                      ].url
-                    }
-                    width={32}
-                    height={32}
-                    alt=''
-                    className='rounded'
-                  />
-                )}
-                <div>
-                  <p className='line-clamp-1 text-sm'>{item.track.name}</p>
-                  <div className='flex flex-row gap-1'>
-                    {item.track.artists.map((artist, artistIndex) => (
-                      <Fragment key={artist.id}>
-                        <span
-                          role='button'
-                          className='line-clamp-1 text-xs hover:underline'
-                          onClick={() => router.push(`/artist/${artist.id}`)}
-                        >
-                          {artist.name}
-                          {artistIndex < item.track.artists.length - 1
-                            ? ', '
-                            : ''}
-                        </span>
-                      </Fragment>
-                    ))}
-                  </div>
-                </div>
-                <div>
-                  <PlayButton track={item.track} />
-                </div>
+              <TableCell>
+                <TrackCell track={item.track} />
               </TableCell>
               <TableCell
                 onClick={() => router.push(`../album/${item.track.album.id}`)}
