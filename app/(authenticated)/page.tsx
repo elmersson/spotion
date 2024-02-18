@@ -8,7 +8,6 @@ import {
 import { getAuthSession } from '@/lib/server-utils';
 
 import { HomeTables } from './_components/home-tables';
-import { ListItem } from './_components/list-item';
 
 export default async function Home() {
   const session = await getAuthSession();

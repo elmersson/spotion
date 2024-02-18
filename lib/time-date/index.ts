@@ -1,4 +1,13 @@
 import { formatDateString } from './date';
-import { convertMsToMinutesSeconds, formatDuration } from './time';
+import {
+  convertMsToMinutesSeconds,
+  formatDuration,
+  formatPlayerTime,
+} from './time';
 
-export { convertMsToMinutesSeconds, formatDuration, formatDateString };
+export {
+  convertMsToMinutesSeconds,
+  formatDuration,
+  formatDateString,
+  formatPlayerTime,
+};

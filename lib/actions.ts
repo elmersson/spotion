@@ -267,8 +267,6 @@ export const getTopItems = async ({
   const artists = artistsResponse.items;
   const tracks = tracksResponse.items;
 
-  console.log('artists', artists);
-
   return {
     artists: artists,
     tracks: tracks,
