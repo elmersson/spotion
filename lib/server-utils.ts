@@ -17,6 +17,28 @@ export const customGet = async (url: string, session: AuthSession | null) => {
   return res;
 };
 
+export const customPost = async (
+  url: string,
+  session: AuthSession | null
+): Promise<void> => {
+  if (!session) {
+    throw new Error('Session is not available.');
+  }
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${session.user.accessToken}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(
+      `HTTP error! status: ${response.status} ${response.statusText}`
+    );
+  }
+};
+
 export const getAuthSession = async () => {
   const session = (await getServerSession(authOptions)) as AuthSession;
   if (!session) {

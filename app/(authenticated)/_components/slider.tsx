@@ -6,9 +6,10 @@ import { FC } from 'react';
 interface SlideProps {
   value?: number;
   onChange?: (value: number) => void;
+  max?: number;
 }
 
-export const Slider: FC<SlideProps> = ({ value = 1, onChange }) => {
+export const Slider: FC<SlideProps> = ({ value = 1, onChange, max }) => {
   const handleChange = (newValue: number[]) => {
     onChange?.(newValue[0]);
   };
@@ -27,7 +28,7 @@ export const Slider: FC<SlideProps> = ({ value = 1, onChange }) => {
       defaultValue={[1]}
       value={[value]}
       onValueChange={handleChange}
-      max={1}
+      max={max ?? 1}
       min={0}
       step={0.01}
       aria-label='Volume'

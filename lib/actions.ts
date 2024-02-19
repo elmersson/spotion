@@ -6,6 +6,7 @@ import {
   Discography,
   Playlist,
   RecentlyPlayed,
+  SearchResults,
   Show,
   ShowEpisodes,
   TopItemsResult,
@@ -14,7 +15,7 @@ import {
   UserSavedShow,
 } from '@/types/types';
 
-import { customGet } from './server-utils';
+import { customGet, customPost } from './server-utils';
 
 export const getUserLikedPlaylists = async (
   session: AuthSession
@@ -271,4 +272,31 @@ export const getTopItems = async ({
     artists: artists,
     tracks: tracks,
   };
+};
+
+export const searchSpotify = async (
+  session: AuthSession,
+  query: string,
+  type: 'album' | 'artist' | 'playlist' | 'track',
+  limit = 5
+): Promise<SearchResults> => {
+  const encodedQuery = encodeURIComponent(query);
+  const data = await customGet(
+    `https://api.spotify.com/v1/search?q=${encodedQuery}&type=${type}&limit=${limit}`,
+    session
+  );
+
+  return data;
+};
+
+export const skipToNextTrack = async (
+  session: AuthSession | null
+): Promise<void> => {
+  const url = 'https://api.spotify.com/v1/me/player/next';
+  try {
+    await customPost(url, session);
+    console.log('Successfully skipped to the next track.');
+  } catch (error) {
+    console.error('Error skipping to the next track:', error);
+  }
 };

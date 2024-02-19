@@ -9,8 +9,15 @@ import { PlayerInfo } from './player-info';
 
 export const Player = () => {
   const { currentTrack } = useStore();
-  const { isPlaying, togglePlay, duration, currentTime, volume, setVolume } =
-    usePlayer();
+  const {
+    isPlaying,
+    togglePlay,
+    duration,
+    currentTime,
+    volume,
+    setVolume,
+    slider,
+  } = usePlayer();
 
   if (!currentTrack) {
     return null;
@@ -26,6 +33,7 @@ export const Player = () => {
           togglePlay={togglePlay}
           duration={duration}
           currentTime={currentTime}
+          slider={slider}
         />
 
         <PlayerActions volume={volume} setVolume={setVolume} />

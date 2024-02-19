@@ -11,12 +11,14 @@ interface PlayerControlProps {
   togglePlay: () => Promise<void>;
   duration: number;
   currentTime: number;
+  slider: number;
 }
 export const PlayerControl = ({
   isPlaying,
   togglePlay,
   duration,
   currentTime,
+  slider,
 }: PlayerControlProps) => {
   const Icon = isPlaying ? BsPauseFill : BsPlayFill;
 
@@ -87,17 +89,7 @@ export const PlayerControl = ({
         <span className='text-xs text-muted-foreground'>
           {currentTime ? formatPlayerTime(currentTime) : '0:00'}
         </span>
-        {/* <Progress.Root
-          className='bg-gray-dark relative h-1 w-1/2 overflow-hidden rounded-full'
-          style={{ transform: 'translateZ(0)' }}
-          value={slider}
-        >
-          <Progress.Indicator
-            className='duration-[660ms] ease-[cubic-bezier(0.65, 0, 0.35, 1)] size-full bg-white transition-transform'
-            style={{ transform: `translateX(-${100 - slider}%)` }}
-          />
-        </Progress.Root> */}
-        <Slider value={currentTime / duration} />
+        <Slider value={slider} />
         <span className='text-xs text-muted-foreground'>
           {duration ? formatPlayerTime(duration) : '0:00'}
         </span>
