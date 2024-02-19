@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { ElementRef, useRef, useState, useEffect, ReactNode } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 
+import { useStore } from '@/lib/store/zustand';
 import { cn } from '@/lib/utils';
 
 interface SidebarContainerProps {
@@ -12,6 +13,7 @@ interface SidebarContainerProps {
 }
 
 export const SidebarContainer = ({ children }: SidebarContainerProps) => {
+  const { currentTrack } = useStore();
   const pathname = usePathname();
   const isMobile = useMediaQuery('(max-width: 768px)');
 
@@ -83,6 +85,26 @@ export const SidebarContainer = ({ children }: SidebarContainerProps) => {
   };
 
   useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.metaKey && event.key === 'j') {
+        event.preventDefault();
+        if (isCollapsed) {
+          resetWidth();
+        } else {
+          collapse();
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isCollapsed]);
+
+  useEffect(() => {
     if (isMobile) {
       collapse();
     } else {
@@ -103,7 +125,8 @@ export const SidebarContainer = ({ children }: SidebarContainerProps) => {
         className={cn(
           'group/sidebar relative z-[99999] flex h-[calc(100%-80px)] w-60 flex-col overflow-y-auto bg-secondary',
           isResetting && 'transition-all duration-300 ease-in-out',
-          isMobile && 'w-0'
+          isMobile && 'w-0',
+          !currentTrack && 'h-full'
         )}
         ref={sidebarRef}
       >

@@ -1,9 +1,16 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
+import { useStore } from '@/lib/store/zustand';
 import { cn } from '@/lib/utils';
-import { Album, Artist, RecentlyPlayed, Track } from '@/types/types';
+import {
+  Album,
+  Artist,
+  AuthSession,
+  RecentlyPlayed,
+  Track,
+} from '@/types/types';
 
 import { ArtistAlbums } from './artist-albums';
 import { ArtistPopular } from './artist-popular';
@@ -17,6 +24,7 @@ interface HomeTablesProps {
   topTracks: Track[];
   topArtists: Artist[];
   newReleases: Album[];
+  session: AuthSession;
 }
 
 export const HomeTables = ({
@@ -24,8 +32,14 @@ export const HomeTables = ({
   topTracks,
   topArtists,
   newReleases,
+  session,
 }: HomeTablesProps) => {
+  const { setSession } = useStore();
   const [tab, setTab] = useState<Tabs>('Recantly Played');
+
+  useEffect(() => {
+    setSession(session);
+  }, [session, setSession]);
 
   return (
     <div>
