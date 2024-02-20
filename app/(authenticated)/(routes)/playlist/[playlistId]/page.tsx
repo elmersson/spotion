@@ -1,11 +1,11 @@
-import { Dot, MoreHorizontal } from 'lucide-react';
+import { MoreHorizontal } from 'lucide-react';
 import { FaPlay } from 'react-icons/fa';
 
+import { PlaylistHeaderInformation } from '@/app/(authenticated)/_components/playlistHeaderInfo';
 import { TracksHeader } from '@/app/(authenticated)/_components/tracks-header';
 import { TracksTable } from '@/app/(authenticated)/_components/tracks-table';
 import { getPlaylistById } from '@/lib/actions';
 import { getAuthSession } from '@/lib/server-utils';
-import { calculateTotalDuration, formatDuration } from '@/lib/time-date/time';
 
 interface PlaylistProps {
   params: {
@@ -29,30 +29,7 @@ export default async function Playlist({ params }: PlaylistProps) {
         type={playlist.type}
         name={playlist.name}
       >
-        <>
-          <span className='font-semibold hover:underline'>
-            {playlist.owner?.display_name}
-          </span>
-          {playlist.followers.total > 0 && (
-            <>
-              <Dot size={15} />
-              <span>
-                {playlist.followers.total.toLocaleString()}{' '}
-                {playlist.followers.total > 1 ? 'likes' : 'like'}
-              </span>
-            </>
-          )}
-          <Dot size={15} />
-          <span>{playlist.tracks.total.toLocaleString()} songs</span>
-          {playlist.tracks.items.length > 0 && (
-            <>
-              <Dot size={15} />
-              <span className='text-muted-foreground'>
-                {formatDuration(calculateTotalDuration(playlist))}
-              </span>
-            </>
-          )}
-        </>
+        <PlaylistHeaderInformation playlist={playlist} />
       </TracksHeader>
       <div className='ml-6 mt-4 flex flex-row items-center gap-6'>
         <div

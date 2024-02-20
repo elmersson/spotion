@@ -12,6 +12,7 @@ import {
   TopItemsResult,
   Track,
   TrackAnalysis,
+  User,
   UserSavedShow,
 } from '@/types/types';
 
@@ -289,14 +290,27 @@ export const searchSpotify = async (
   return data;
 };
 
-export const skipToNextTrack = async (
-  session: AuthSession | null
-): Promise<void> => {
-  const url = 'https://api.spotify.com/v1/me/player/next';
-  try {
-    await customPost(url, session);
-    console.log('Successfully skipped to the next track.');
-  } catch (error) {
-    console.error('Error skipping to the next track:', error);
-  }
+export const getUser = async (
+  session: AuthSession,
+  username: string
+): Promise<User> => {
+  const data = await customGet(
+    `https://api.spotify.com/v1/users/${username}`,
+    session
+  );
+
+  return data;
+};
+
+export const getPlaylistByUsername = async (
+  session: AuthSession,
+  username: string,
+  limit = 50
+): Promise<Playlist[]> => {
+  const data = await customGet(
+    `https://api.spotify.com/v1/users/${username}/playlists?limit=${limit}`,
+    session
+  );
+
+  return data.items;
 };

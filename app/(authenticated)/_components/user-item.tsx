@@ -1,5 +1,6 @@
 'use client';
 import { ChevronsLeftRight } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
@@ -13,6 +14,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 export const UserItem = () => {
+  const router = useRouter();
   const session = useSession();
 
   const logout = () => {
@@ -57,7 +59,11 @@ export const UserItem = () => {
                 />
               </Avatar>
             </div>
-            <div className='space-y-1'>
+            <div
+              className='space-y-1'
+              role='button'
+              onClick={() => router.push(`/user/${session.data?.user?.name}`)}
+            >
               <p className='line-clamp-1 text-sm'>{session.data?.user?.name}</p>
             </div>
           </div>

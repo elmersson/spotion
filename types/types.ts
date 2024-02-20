@@ -60,6 +60,7 @@ export interface Track {
 
 export interface Playlist {
   description?: string;
+  collaborative: boolean;
   id: string;
   followers: {
     total: number;
@@ -70,6 +71,7 @@ export interface Playlist {
     id: string;
     display_name?: string;
   };
+  public: boolean;
   items?: [{ added_at: string; track: Track }];
   tracks: {
     items: [{ added_at: string; track: Track }];
@@ -229,4 +231,18 @@ interface Cursors {
 export interface TopItemsResult {
   artists: Artist[];
   tracks: Track[];
+}
+
+export interface User {
+  display_name: string;
+  external_urls: ExternalUrls;
+  followers: {
+    href: string;
+    total: number;
+  };
+  href: string;
+  id: string;
+  images: Image[];
+  type: string;
+  uri: string;
 }

@@ -82,13 +82,10 @@ export const SearchCommand = () => {
 
       try {
         if (session) {
-          console.log(session);
           const results = await searchSpotify(session, searchQuery, 'artist');
-          console.log(results);
           setSearchResults(results);
         }
       } catch (error) {
-        console.error('Search error:', error);
         setSearchResults(undefined);
       } finally {
         setIsLoading(false);
