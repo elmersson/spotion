@@ -21,7 +21,7 @@ export default async function Home() {
   const { artists, tracks } = await getTopItems({ session });
 
   return (
-    <div className='bg-neutral-200dark:bg-neutral-900 size-full overflow-hidden overflow-y-auto rounded-lg'>
+    <div className='size-full overflow-hidden overflow-y-auto rounded-lg bg-neutral-200 dark:bg-neutral-900'>
       <HomeTables
         session={session}
         recentlyPlayed={recentlyPlayed}

@@ -1,5 +1,6 @@
 'use client';
-import { ChevronsLeftRight } from 'lucide-react';
+import { ChevronsLeftRight, ExternalLink, Link2 } from 'lucide-react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 
@@ -42,15 +43,36 @@ export const UserItem = () => {
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        className='w-80'
+        className='bg-neutral-200 dark:bg-neutral-900'
         align='start'
         alignOffset={11}
         forceMount
       >
-        <div className='flex flex-col space-y-4 p-2'>
-          <p className='text-xs font-medium leading-none text-muted-foreground'>
+        <div className='flex flex-col space-y-2 p-2'>
+          <p className='text-sm font-medium leading-none text-muted-foreground'>
             {session.data?.user?.email}
           </p>
+          <DropdownMenuSeparator />
+          <Link
+            href='https://www.spotify.com/us/account/overview/?utm_source=spotify&utm_medium=menu&utm_campaign=your_account'
+            rel='noopener noreferrer'
+            target='_blank'
+            className='flex flex-row items-center justify-between text-sm font-medium text-muted-foreground'
+          >
+            <span>Profile</span> <ExternalLink size={18} />
+          </Link>
+          <DropdownMenuSeparator />
+
+          <Link
+            href='https://support.spotify.com/'
+            rel='noopener noreferrer'
+            target='_blank'
+            className='flex flex-row items-center justify-between text-sm font-medium text-muted-foreground'
+          >
+            <span>Support</span> <ExternalLink size={18} />
+          </Link>
+          <DropdownMenuSeparator />
+
           <div className='flex items-center gap-x-2'>
             <div className='rounded-md bg-secondary p-1'>
               <Avatar className='size-6'>
