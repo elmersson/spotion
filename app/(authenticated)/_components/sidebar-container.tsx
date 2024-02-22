@@ -5,6 +5,11 @@ import { usePathname } from 'next/navigation';
 import { ElementRef, useRef, useState, useEffect, ReactNode } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 import { useStore } from '@/lib/store/zustand';
 import { cn } from '@/lib/utils';
 
@@ -130,16 +135,23 @@ export const SidebarContainer = ({ children }: SidebarContainerProps) => {
         )}
         ref={sidebarRef}
       >
-        <div
-          onClick={collapse}
-          role='button'
-          className={cn(
-            'absolute right-2 top-3 h-6 w-6 rounded-sm text-muted-foreground opacity-0 transition hover:bg-neutral-300 group-hover/sidebar:opacity-100 dark:hover:bg-neutral-600',
-            isMobile && 'opacity-100'
-          )}
-        >
-          <ChevronsLeft className='mt-0.5 size-5' />
-        </div>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div
+              onClick={collapse}
+              role='button'
+              className={cn(
+                'absolute right-2 top-3 h-6 w-6 rounded-sm text-muted-foreground opacity-0 transition hover:bg-neutral-300 group-hover/sidebar:opacity-100 dark:hover:bg-neutral-600',
+                isMobile && 'opacity-100'
+              )}
+            >
+              <ChevronsLeft className='mt-0.5 size-5' />
+            </div>
+          </TooltipTrigger>
+          <TooltipContent side='right'>
+            <p>⌘ + j</p>
+          </TooltipContent>
+        </Tooltip>
         {children}
         <div
           onMouseDown={handleMouseDown}
@@ -157,11 +169,18 @@ export const SidebarContainer = ({ children }: SidebarContainerProps) => {
       >
         <nav className='w-full bg-transparent px-3 py-2'>
           {isCollapsed && (
-            <MenuIcon
-              onClick={resetWidth}
-              role='button'
-              className='size-6 text-muted-foreground'
-            />
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <MenuIcon
+                  onClick={resetWidth}
+                  role='button'
+                  className='size-6 text-muted-foreground'
+                />
+              </TooltipTrigger>
+              <TooltipContent side='right'>
+                <p>⌘ + j</p>
+              </TooltipContent>
+            </Tooltip>
           )}
         </nav>
       </div>

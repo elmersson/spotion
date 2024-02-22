@@ -1,5 +1,5 @@
 'use client';
-import { ChevronsLeftRight, ExternalLink, Link2 } from 'lucide-react';
+import { ChevronsLeftRight, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
