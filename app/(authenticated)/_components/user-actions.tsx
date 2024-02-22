@@ -1,13 +1,15 @@
 'use client';
 
-import { Plus, Search, Settings } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
+import { FiPlus } from 'react-icons/fi';
 import { GoHome, GoHomeFill } from 'react-icons/go';
+import { IoSearch, IoSettingsOutline } from 'react-icons/io5';
 import { PiBrowsersDuotone, PiBrowsersFill } from 'react-icons/pi';
 
 import { useSearch } from '@/hooks/use-search';
 import { useSettings } from '@/hooks/use-settings';
-import { cn } from '@/lib/utils';
+
+import { UserActionItem } from './user-action-item';
 
 export const UserActions = () => {
   const pathname = usePathname();
@@ -15,57 +17,42 @@ export const UserActions = () => {
   const settings = useSettings();
   const search = useSearch();
 
-  const isHome = pathname === '/';
-  const HomeIcon = isHome ? GoHomeFill : GoHome;
-  const isBrowse = pathname === '/browse';
-  const BrowseIcon = isBrowse ? PiBrowsersFill : PiBrowsersDuotone;
+  const actionItems = [
+    {
+      onClick: () => router.push('/'),
+      Icon: pathname === '/' ? GoHomeFill : GoHome,
+      label: 'Home',
+      isActive: pathname === '/',
+    },
+    {
+      onClick: search.onOpen,
+      Icon: IoSearch,
+      label: 'Search',
+      tooltip: '⌘ + k',
+    },
+    {
+      onClick: () => router.push('/browse'),
+      Icon: pathname === '/browse' ? PiBrowsersFill : PiBrowsersDuotone,
+      label: 'Browse',
+      isActive: pathname === '/browse',
+    },
+    {
+      onClick: settings.onOpen,
+      Icon: IoSettingsOutline,
+      label: 'Settings',
+    },
+    {
+      onClick: () => {},
+      Icon: FiPlus,
+      label: 'Create playlist',
+    },
+  ];
+
   return (
-    <div className='pl-3'>
-      <div
-        role='button'
-        onClick={() => router.push('/')}
-        className={cn(
-          'group flex min-h-[27px] w-full items-center py-1 pr-3 text-sm font-medium text-muted-foreground hover:bg-primary/5 hover:text-black hover:dark:text-white',
-          isHome && 'text-black dark:text-white'
-        )}
-      >
-        <HomeIcon className='mr-2 shrink-0' size={16} />
-        <span className='line-clamp-1'>Home</span>
-      </div>
-      <div
-        role='button'
-        onClick={search.onOpen}
-        className='group flex min-h-[27px] w-full items-center py-1 pr-3 text-sm font-medium text-muted-foreground hover:bg-primary/5 hover:text-black hover:dark:text-white'
-      >
-        <Search className='mr-2 shrink-0' size={16} />
-        <span className='line-clamp-1'>Search</span>
-      </div>
-      <div
-        role='button'
-        onClick={() => router.push('/browse')}
-        className={cn(
-          'group flex min-h-[27px] w-full items-center py-1 pr-3 text-sm font-medium text-muted-foreground hover:bg-primary/5 hover:text-black hover:dark:text-white',
-          isBrowse && 'text-black dark:text-white'
-        )}
-      >
-        <BrowseIcon className='mr-2 shrink-0' size={16} />
-        <span className='line-clamp-1'>Browse</span>
-      </div>
-      <div
-        role='button'
-        onClick={settings.onOpen}
-        className='group flex min-h-[27px] w-full items-center py-1 pr-3 text-sm font-medium text-muted-foreground hover:bg-primary/5 hover:text-black hover:dark:text-white'
-      >
-        <Settings className='mr-2 shrink-0' size={16} />
-        <span className='line-clamp-1'>Settings</span>
-      </div>
-      <div
-        role='button'
-        className='group flex min-h-[27px] w-full items-center py-1 pr-3 text-sm font-medium text-muted-foreground hover:bg-primary/5 hover:text-black hover:dark:text-white'
-      >
-        <Plus className='mr-2 shrink-0' size={16} />
-        <span className='truncate'>Create playlist</span>
-      </div>
-    </div>
+    <>
+      {actionItems.map((item, index) => (
+        <UserActionItem key={`${item.label} + ${index}`} {...item} />
+      ))}
+    </>
   );
 };

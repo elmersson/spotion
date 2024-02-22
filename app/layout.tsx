@@ -6,6 +6,7 @@ import { AuthSessionProvider } from '@/components/providers/auth-session-provide
 import { ModalProvider } from '@/components/providers/modal-provider';
 import PlayerProvider from '@/components/providers/player-provider';
 import { ThemeProvider } from '@/components/providers/theme-provider';
+import { TooltipProvider } from '@/components/ui/tooltip';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -45,8 +46,9 @@ export default async function RootLayout({
               storageKey='spotion-theme'
             >
               <ModalProvider />
-
-              {children}
+              <TooltipProvider skipDelayDuration={300}>
+                {children}
+              </TooltipProvider>
             </ThemeProvider>
           </PlayerProvider>
         </AuthSessionProvider>
