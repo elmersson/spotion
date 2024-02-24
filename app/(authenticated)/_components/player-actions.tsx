@@ -4,18 +4,31 @@ import {
   HiSpeakerWave,
   HiSpeakerXMark,
 } from 'react-icons/hi2';
-import { LuMonitorSpeaker } from 'react-icons/lu';
 
+import { AuthSession, Device } from '@/types/types';
+
+import { PlayerDevices } from './player-devices';
 import { Slider } from './slider';
 
 interface PlayerActionsProps {
   volume: number;
   setVolume: Dispatch<SetStateAction<number>>;
+  device?: Device;
+  session: AuthSession | null;
 }
 
-export const PlayerActions = ({ volume, setVolume }: PlayerActionsProps) => {
+export const PlayerActions = ({
+  volume,
+  setVolume,
+  device,
+  session,
+}: PlayerActionsProps) => {
   const [muteVolume, setMuteVolume] = useState<number>(0);
   const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
+
+  if (!session) {
+    return null;
+  }
 
   const toggleMute = () => {
     if (volume === 0) {
@@ -37,15 +50,8 @@ export const PlayerActions = ({ volume, setVolume }: PlayerActionsProps) => {
         hover:dark:text-white'
           size={30}
         />
-        <LuMonitorSpeaker
-          className='              
-        cursor-pointer 
-        text-neutral-400 
-        transition 
-        hover:text-black
-        hover:dark:text-white'
-          size={30}
-        />
+        <PlayerDevices currentDevice={device} />
+
         <VolumeIcon
           onClick={toggleMute}
           className='              

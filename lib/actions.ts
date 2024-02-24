@@ -3,7 +3,9 @@ import {
   Album,
   Artist,
   AuthSession,
+  Device,
   Discography,
+  PlaybackState,
   Playlist,
   RecentlyPlayed,
   SearchResults,
@@ -16,6 +18,7 @@ import {
   UserSavedShow,
 } from '@/types/types';
 
+import { customClientGet } from './client-utils';
 import { customGet, customPost } from './server-utils';
 
 export const getUserLikedPlaylists = async (
@@ -313,4 +316,26 @@ export const getPlaylistByUsername = async (
   );
 
   return data.items;
+};
+
+export const getPlayerState = async (
+  session: AuthSession
+): Promise<PlaybackState> => {
+  const data = await customClientGet(
+    'https://api.spotify.com/v1/me/player',
+    session
+  );
+
+  return data;
+};
+
+export const getDevices = async (session: AuthSession): Promise<Device[]> => {
+  const data = await customClientGet(
+    'https://api.spotify.com/v1/me/player/devices',
+    session
+  );
+
+  console.log(data);
+
+  return data;
 };
