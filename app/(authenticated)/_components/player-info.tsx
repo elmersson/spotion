@@ -5,7 +5,7 @@ import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { Track } from '@/types/types';
 
 interface PlayerInfoProps {
-  track: Track;
+  track?: Track | null;
 }
 export const PlayerInfo = ({ track }: PlayerInfoProps) => {
   const [isLiked, setIsLiked] = useState(false);
@@ -15,6 +15,10 @@ export const PlayerInfo = ({ track }: PlayerInfoProps) => {
   const toggleLiked = () => {
     setIsLiked(!isLiked);
   };
+
+  if (!track) {
+    return null;
+  }
 
   return (
     <div className='flex w-full justify-start'>
