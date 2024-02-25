@@ -5,7 +5,7 @@ import {
   HiSpeakerXMark,
 } from 'react-icons/hi2';
 
-import { AuthSession, Device } from '@/types/types';
+import { Device } from '@/types/types';
 
 import { PlayerDevices } from './player-devices';
 import { Slider } from './slider';
@@ -14,21 +14,15 @@ interface PlayerActionsProps {
   volume: number;
   setVolume: Dispatch<SetStateAction<number>>;
   device?: Device;
-  session: AuthSession | null;
 }
 
 export const PlayerActions = ({
   volume,
   setVolume,
   device,
-  session,
 }: PlayerActionsProps) => {
   const [muteVolume, setMuteVolume] = useState<number>(0);
   const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
-
-  if (!session) {
-    return null;
-  }
 
   const toggleMute = () => {
     if (volume === 0) {

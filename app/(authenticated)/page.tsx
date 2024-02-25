@@ -23,7 +23,6 @@ export default async function Home() {
   return (
     <div className='size-full overflow-hidden overflow-y-auto rounded-lg bg-neutral-200 dark:bg-neutral-900'>
       <HomeTables
-        session={session}
         recentlyPlayed={recentlyPlayed}
         topTracks={tracks}
         topArtists={artists}

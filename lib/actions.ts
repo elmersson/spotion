@@ -18,7 +18,7 @@ import {
   UserSavedShow,
 } from '@/types/types';
 
-import { customClientGet } from './client-utils';
+import { customClientGet, customClientPost } from './client-utils';
 import { customGet, customPost } from './server-utils';
 
 export const getUserLikedPlaylists = async (
@@ -338,4 +338,15 @@ export const getDevices = async (session: AuthSession): Promise<Device[]> => {
   console.log(data);
 
   return data;
+};
+
+export const putCreatePlaylist = async (
+  session: AuthSession,
+  body: unknown
+) => {
+  await customClientPost(
+    `https://api.spotify.com/v1/users/${session.user.name}/playlists`,
+    session,
+    body
+  );
 };

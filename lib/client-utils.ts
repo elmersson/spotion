@@ -14,3 +14,27 @@ export const customClientGet = async (
 
   return res;
 };
+
+export const customClientPost = async (
+  url: string,
+  session: AuthSession | null,
+  body?: unknown
+) => {
+  if (!session) {
+    throw new Error('Session is not available.');
+  }
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${session.user.accessToken}`,
+    },
+    body: JSON.stringify(body),
+  });
+
+  if (!response.ok) {
+    throw new Error(
+      `HTTP error! status: ${response.status} ${response.statusText}`
+    );
+  }
+};

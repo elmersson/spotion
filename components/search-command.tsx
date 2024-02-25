@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { BounceLoader } from 'react-spinners';
 
@@ -14,13 +15,13 @@ import {
 } from '@/components/ui/command';
 import { useSearch } from '@/hooks/use-search';
 import { searchSpotify } from '@/lib/actions';
-import { useStore } from '@/lib/store/zustand';
+import { getAuthSession } from '@/lib/server-utils';
 import { SearchResults } from '@/types/types';
 
 import { Box } from './box';
 
 export const SearchCommand = () => {
-  const { session } = useStore();
+  const userInfo = useSession();
   const router = useRouter();
   const [isMounted, setIsMounted] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -81,6 +82,7 @@ export const SearchCommand = () => {
       setIsLoading(true);
 
       try {
+        const session = await getAuthSession();
         if (session) {
           const results = await searchSpotify(session, searchQuery, 'artist');
           setSearchResults(results);
@@ -97,9 +99,9 @@ export const SearchCommand = () => {
     }, 500);
 
     return () => clearTimeout(timeoutId);
-  }, [searchQuery, session]);
+  }, [searchQuery]);
 
-  if (!isMounted || !session) {
+  if (!isMounted) {
     return null;
   }
 
@@ -110,7 +112,7 @@ export const SearchCommand = () => {
   return (
     <CommandDialog open={isOpen} onOpenChange={onClose}>
       <CommandInput
-        placeholder={`Search ${session.user?.name}s Spotion...`}
+        placeholder={`Search ${userInfo.data?.user?.name}s Spotion...`}
         onChangeCapture={handleInputChange}
       />
       <CommandList>
