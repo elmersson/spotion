@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 
 import { usePlayer } from '@/components/providers/player-provider';
 import { getPlayerState } from '@/lib/actions';
+import { getAuthSession } from '@/lib/server-utils';
 import { useStore } from '@/lib/store/zustand';
 import { PlaybackState } from '@/types/types';
 
@@ -12,7 +13,7 @@ import { PlayerControl } from './player-control';
 import { PlayerInfo } from './player-info';
 
 export const Player = () => {
-  const { session } = useStore();
+  const [playerState, setPlayerState] = useState<PlaybackState | null>(null);
 
   const { currentTrack } = useStore();
   const {
@@ -25,10 +26,10 @@ export const Player = () => {
     slider,
   } = usePlayer();
 
-  const [playerState, setPlayerState] = useState<PlaybackState | null>(null);
-
   useEffect(() => {
     const fetchPlayerState = async () => {
+      const session = await getAuthSession();
+
       if (session) {
         const state = await getPlayerState(session);
         setPlayerState(state);
@@ -36,7 +37,7 @@ export const Player = () => {
     };
 
     fetchPlayerState();
-  }, [session]);
+  }, []);
 
   if (!currentTrack && !playerState?.item) {
     return null;
@@ -59,7 +60,6 @@ export const Player = () => {
           volume={volume}
           setVolume={setVolume}
           device={playerState?.device}
-          session={session}
         />
       </div>
     </div>

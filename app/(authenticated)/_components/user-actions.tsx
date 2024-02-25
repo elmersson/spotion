@@ -6,6 +6,7 @@ import { GoHome, GoHomeFill } from 'react-icons/go';
 import { IoSearch, IoSettingsOutline } from 'react-icons/io5';
 import { PiBrowsersDuotone, PiBrowsersFill } from 'react-icons/pi';
 
+import { useCreatePlaylist } from '@/hooks/use-create-playlist';
 import { useSearch } from '@/hooks/use-search';
 import { useSettings } from '@/hooks/use-settings';
 
@@ -16,6 +17,7 @@ export const UserActions = () => {
   const router = useRouter();
   const settings = useSettings();
   const search = useSearch();
+  const create = useCreatePlaylist();
 
   const actionItems = [
     {
@@ -42,9 +44,10 @@ export const UserActions = () => {
       label: 'Settings',
     },
     {
-      onClick: () => {},
+      onClick: create.onOpen,
       Icon: FiPlus,
       label: 'Create playlist',
+      tooltip: '⌘ + .',
     },
   ];
 
