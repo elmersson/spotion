@@ -7,9 +7,10 @@ interface SlideProps {
   value?: number;
   onChange?: (value: number) => void;
   max?: number;
+  step?: number;
 }
 
-export const Slider: FC<SlideProps> = ({ value = 1, onChange, max }) => {
+export const Slider: FC<SlideProps> = ({ value = 0, onChange, max, step }) => {
   const handleChange = (newValue: number[]) => {
     onChange?.(newValue[0]);
   };
@@ -30,7 +31,7 @@ export const Slider: FC<SlideProps> = ({ value = 1, onChange, max }) => {
       onValueChange={handleChange}
       max={max ?? 1}
       min={0}
-      step={0.01}
+      step={step ?? 0.01}
       aria-label='Volume'
     >
       <RadixSlider.Track

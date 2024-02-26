@@ -12,8 +12,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { useStore } from '@/lib/store/zustand';
 import { convertMsToMinutesSeconds, formatDateString } from '@/lib/time-date';
-import { Album, Playlist } from '@/types/types';
+import { Album, Playlist, Track } from '@/types/types';
 
 interface TracksTableProps {
   playlist: Playlist | Album;
@@ -21,6 +22,7 @@ interface TracksTableProps {
 
 export const TracksTable = ({ playlist }: TracksTableProps) => {
   const router = useRouter();
+  const { setCurrentTrack } = useStore();
 
   const type = (playlist: Playlist | Album): playlist is Playlist => {
     return 'followers' in playlist;
@@ -41,6 +43,12 @@ export const TracksTable = ({ playlist }: TracksTableProps) => {
     return '';
   };
 
+  const handlePress = (track: Track) => {
+    if (track.preview_url) {
+      setCurrentTrack(track);
+    }
+  };
+
   return (
     <Table className='mb-[80px]'>
       <TableHeader>
@@ -57,7 +65,15 @@ export const TracksTable = ({ playlist }: TracksTableProps) => {
       <TableBody>
         {tracks.map((track, index) => {
           return (
-            <TableRow key={track.id} className='grayscale-75 hover:grayscale-0'>
+            <TableRow
+              key={track.id}
+              className='grayscale-75 hover:grayscale-0'
+              role='button'
+              onDoubleClick={(e) => {
+                e.preventDefault();
+                handlePress(track);
+              }}
+            >
               <TableCell>{index + 1}</TableCell>
               <TableCell className='flex flex-row gap-3'>
                 {isPlaylist && track.album.images.length > 0 && (

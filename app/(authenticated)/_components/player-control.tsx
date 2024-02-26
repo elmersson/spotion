@@ -89,7 +89,7 @@ export const PlayerControl = ({
         <span className='text-xs text-muted-foreground'>
           {currentTime ? formatPlayerTime(currentTime) : '0:00'}
         </span>
-        <Slider value={slider} />
+        <Slider value={slider / 100} step={0.0001} />
         <span className='text-xs text-muted-foreground'>
           {duration ? formatPlayerTime(duration) : '0:00'}
         </span>

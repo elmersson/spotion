@@ -7,7 +7,7 @@ import { Sidebar } from './_components/sidebar';
 
 const MainLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <div className='flex h-full dark:bg-[#1F1F1F]'>
+    <div className='flex h-full bg-neutral-200 dark:bg-neutral-900'>
       <Sidebar />
       <Player />
       <main className='h-full flex-1 overflow-y-auto'>
