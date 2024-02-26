@@ -300,3 +300,68 @@ export interface PlaybackActions {
   toggling_repeat_track: boolean;
   transferring_playback: boolean;
 }
+
+export interface CategoriesResponse {
+  categories: {
+    href: string;
+    limit: number;
+    next: string | null;
+    offset: number;
+    previous: string | null;
+    total: number;
+    items: CategoryItem[];
+  };
+}
+
+export interface CategoryItem {
+  href: string;
+  icons: Image[];
+  id: string;
+  name: string;
+}
+
+export interface CategoryPlaylistsResponse {
+  message: string;
+  playlists: CategoryPlaylistCollection;
+}
+
+interface CategoryPlaylistCollection {
+  href: string;
+  items: CategoryPlaylistItem[];
+  limit: number;
+  next: string | null;
+  offset: number;
+  previous: string | null;
+  total: number;
+}
+
+interface CategoryPlaylistItem {
+  collaborative: boolean;
+  description: string;
+  external_urls: ExternalUrls;
+  href: string;
+  id: string;
+  images: Image[];
+  name: string;
+  owner: PlaylistOwner;
+  primary_color: string | null;
+  public: boolean;
+  snapshot_id: string;
+  tracks: PlaylistTracks;
+  type: string;
+  uri: string;
+}
+
+interface PlaylistOwner {
+  display_name: string;
+  external_urls: ExternalUrls;
+  href: string;
+  id: string;
+  type: string;
+  uri: string;
+}
+
+interface PlaylistTracks {
+  href: string;
+  total: number;
+}

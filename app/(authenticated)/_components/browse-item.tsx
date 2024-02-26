@@ -1,15 +1,31 @@
 'use client';
 
 import Image from 'next/image';
-import { FC } from 'react';
+import { useRouter } from 'next/navigation';
+
+type ItemType = 'browse' | 'playlist';
 
 interface BrowseItemProps {
   title: string;
   imagePath: string;
+  id: string;
+  itemType: ItemType;
 }
-export const BrowseItem: FC<BrowseItemProps> = ({ title, imagePath }) => {
+export const BrowseItem = ({
+  title,
+  imagePath,
+  id,
+  itemType,
+}: BrowseItemProps) => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push(`/${itemType}/${id}`);
+  };
   return (
     <div
+      role='button'
+      onClick={handleClick}
       className='
           group 
           relative 
@@ -42,16 +58,11 @@ export const BrowseItem: FC<BrowseItemProps> = ({ title, imagePath }) => {
           alt='Image'
         />
       </div>
-      <div
-        className='
-            absolute 
-            flex 
-            size-full 
-            p-2
-            text-white'
-      >
-        <p className='line-clamp-2 text-sm font-semibold'>{title}</p>
-      </div>
+      {itemType === 'browse' && (
+        <div className={'absolute flex size-full p-2 text-white'}>
+          <p className='line-clamp-2 font-semibold shadow-lg'>{title}</p>
+        </div>
+      )}
     </div>
   );
 };

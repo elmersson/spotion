@@ -3,6 +3,8 @@ import {
   Album,
   Artist,
   AuthSession,
+  CategoriesResponse,
+  CategoryPlaylistsResponse,
   Device,
   Discography,
   PlaybackState,
@@ -349,4 +351,27 @@ export const putCreatePlaylist = async (
     session,
     body
   );
+};
+
+export const getCategories = async (
+  session: AuthSession
+): Promise<CategoriesResponse> => {
+  const data = await customGet(
+    `https://api.spotify.com/v1/browse/categories?limit=50`,
+    session
+  );
+
+  return data;
+};
+
+export const getCategoriePlaylist = async (
+  session: AuthSession,
+  id: string
+): Promise<CategoryPlaylistsResponse> => {
+  const data = await customGet(
+    `https://api.spotify.com/v1/browse/categories/${id}/playlists?limit=50`,
+    session
+  );
+
+  return data;
 };
